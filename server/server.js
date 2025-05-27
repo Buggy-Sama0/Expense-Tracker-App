@@ -27,6 +27,22 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/dashboard', async (req, res) => {
+    try {
+        const expenses = await Expense.find()
+            .select('description amount category date')
+            .sort({ date: -1 })
+            .limit(5); // Get latest 5 expenses for dashboard
+        res.status(200).json({
+            success: true,
+            data: expenses
+        });
+    } catch (err) {
+        console.error("Dashboard error:", err);
+        res.status(500).json({ error: 'Error loading dashboard data' });
+    }
+});
+
 // Get list of expenses
 app.get("/api/showExpense", async (req, res) => {
     try {
