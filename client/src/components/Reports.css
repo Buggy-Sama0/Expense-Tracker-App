@@ -1,0 +1,17 @@
+
+
+/* Target preset options (adjust class based on your DateRangePicker) */
+.rdrStaticRangeLabel, .daterangepicker .ranges li {
+    color: #333 !important; /* Dark gray for visibility */
+    font-size: large;
+}
+
+#reports {
+    display: flex;
+    flex-direction: column;
+}
+
+#reports select {
+    width: 170px;
+}
+

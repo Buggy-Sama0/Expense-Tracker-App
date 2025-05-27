@@ -1,0 +1,246 @@
+@keyframes display {
+    from {transform: translateY(10px);}
+    to {transform: translateY(0px);}
+}
+
+#dashboard {
+    animation: slideUp 0.4s ease-out;
+}
+
+.total-expenses {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--space-6);
+    text-align: center;
+}
+
+.total-expenses h2 {
+    color: white;
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-2);
+}
+
+/* Chart Section */
+.budget-overview {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.budget-overview h3 {
+    text-align: center;
+    margin-bottom: var(--space-4);
+    color: var(--gray-800);
+    font-size: var(--font-size-xl);
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    margin: var(--space-4) auto;
+    padding: var(--space-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Make chart responsive and maintain aspect ratio */
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 400px !important;
+    max-height: 400px !important;
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+
+/* Chart Legend Styles */
+.budget-overview .chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    font-size: var(--font-size-sm);
+}
+
+/* Table Styles */
+.recent-transactions {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: var(--space-4);
+}
+
+table tr {
+    transform: translateY(10px);
+    animation: display 1s forwards;
+}
+
+table thead {
+    font-weight: 900;
+    color: #ffffff;
+    background: #1fa57079;
+}
+
+table th {
+    background: var(--gray-100);
+    color: var(--gray-800);
+    font-weight: 600;
+    padding: var(--space-4);
+    text-align: left;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+}
+
+table tr {
+    transition: var(--transition-all);
+}
+
+table tr:hover {
+    background: var(--gray-50);
+}
+
+/* Category Labels */
+.category-label {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.category-label.food {
+    background: #fef3f2;
+    color: #dc2626;
+}
+
+.category-label.travel {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.category-label.bill {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+/* Buttons */
+.byyn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4) var(--space-4);
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius);
+    font-weight: 700;
+    transition: var(--transition-all);
+    margin-right: var(--space-2);
+}
+
+.byyn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+table button {
+    background: var(--danger);
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius);
+    font-size: var(--font-size-sm);
+    transition: var(--transition-all);
+}
+
+table button:hover {
+    background: var(--danger-dark);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .total-expenses {
+        padding: var(--space-6);
+    }
+
+    table th,
+    table td {
+        padding: var(--space-3);
+    }
+
+    .budget-overview,
+    .recent-transactions {
+        padding: var(--space-4);
+    }
+
+    .chart-container {
+        min-height: 350px;
+    }
+
+    .chart-container canvas {
+        max-width: 350px !important;
+        max-height: 350px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .total-expenses h2 {
+        font-size: var(--font-size-2xl);
+    }
+
+    table {
+        font-size: var(--font-size-sm);
+    }
+
+    .category-label {
+        font-size: var(--font-size-xs);
+    }
+
+    .chart-container {
+        min-height: 300px;
+        padding: var(--space-2);
+    }
+
+    .chart-container canvas {
+        max-width: 300px !important;
+        max-height: 300px !important;
+    }
+
+    .chart-legend-item {
+        font-size: var(--font-size-xs);
+        padding: var(--space-1) var(--space-2);
+    }
+}
+
