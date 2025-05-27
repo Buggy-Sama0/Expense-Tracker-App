@@ -73,7 +73,7 @@ app.post("/api/addExpense", (req, res) => {
                 }
 
                 res.status(200).json({ message: 'Expense recorded', result, 
-                    postData: {description, amount, category, date}
+                    postData: {description, amount, category, date}, url:req.url
                  });
             }
         )
