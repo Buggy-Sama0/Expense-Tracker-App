@@ -1,22 +1,28 @@
 require('dotenv').config();
-// For MySQL
-let mysql=require('mysql');
+const mongoose = require('mongoose');
 
-const connection=mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-
-connection.connect((err)=>{
-    if (err) {
-        console.error('Error connecting to database:', err);
-        return;
+const connectDB = async () => {
+    try {        
+        const conn = await mongoose.connect(process.env.MONGODB_URI);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1);
     }
+};
 
-    console.log('Connected to the MySql server'); 
+// Create expense schema
+const expenseSchema = new mongoose.Schema({
+    description: String,
+    amount: Number,
+    category: String,
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
+// Create expense model
+const Expense = mongoose.model('Expense', expenseSchema);
 
-module.exports=connection;
+module.exports = { connectDB, Expense };
