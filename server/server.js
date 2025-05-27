@@ -10,7 +10,7 @@ connectDB();
 
 const corsOptions = {
     origin: ['http://localhost:5173',
-        'https://expense-tracker-app-4fiq.vercel.app'
+        'https://expense-tracker-app-4fiq.vercel.app/dashboard'
     ],
     credentials: true,
     optionsSuccessStatus: 200
