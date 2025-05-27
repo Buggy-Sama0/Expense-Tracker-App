@@ -19,6 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.send({
+        activeStatus:true,
+        error:false
+    })
+})
 
 // Get list of expenses
 app.get("/api/showExpense", (req, res) => {
