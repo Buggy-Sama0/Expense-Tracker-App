@@ -18,4 +18,20 @@ connection.connect((err)=>{
     console.log('Connected to the MySql server'); 
 });
 
+// Add error handler for lost connections
+mysqlConnection.on('error', function(err) {
+    console.error('Database error:', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        // Reconnect if connection is lost
+        mysqlConnection.connect((err) => {
+            if (err) {
+                console.error('Error reconnecting:', err);
+            }
+        });
+    } else {
+        throw err;
+    }
+});
+
+
 module.exports=connection;
