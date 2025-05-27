@@ -6,15 +6,11 @@ const bodyParser = require('body-parser');
 const mysqlConnection=require('./model/db');
 
 
+
 const corsOptions = {
-    origin: [
-        'http://localhost:5173',
-        'https://expense-tracker-app-sage-ten.vercel.app',
-        'https://expense-tracker-app-4f1g.vercel.app'
-    ],
-    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    optionsSuccessStatus: 200
+    origin: ['http://localhost:5173',
+        'https://expense-app-tracker1.netlify.app'
+    ]
 };
 
 app.use(cors(corsOptions));
