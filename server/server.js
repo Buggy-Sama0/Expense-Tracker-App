@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
         error: false
     });
 
-    res.redirect("/dashboard");
+    res.redirect("/api/showExpense");
 });
 
 app.get('/dashboard', async (req, res) => {
