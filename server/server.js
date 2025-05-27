@@ -9,7 +9,7 @@ const mysqlConnection=require('./model/db');
 
 const corsOptions = {
     origin: ['http://localhost:5173',
-        'https://expense-app-tracker1.netlify.app'
+        'https://expense-tracker-app-4fiq.vercel.app'
     ]
 };
 
