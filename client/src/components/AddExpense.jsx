@@ -18,12 +18,12 @@ const AddExpense = () => {
         const dateStr = new Date(date).toISOString().split('T')[0];
 
         try {            
-            await axios.post(`${API_URL}/addExpense`, 
+            const response=await axios.post(`${API_URL}/addExpense`, 
                 {description, amount, category, 
                     date: dateStr // YYYY-MM-DD
                 }, 
             );
-            //console.log(response.data);
+            console.log(response.data);
 
             setDescription('');
             setAmount('');
