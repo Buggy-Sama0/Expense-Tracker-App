@@ -28,6 +28,11 @@ lerna-debug.log*
 
 # Testing
 /coverage
+/test
+/__mocks__
+*.babelrc
+*.config.cjs
+*.config.json
 
 # Editor directories and files
 .vscode/*

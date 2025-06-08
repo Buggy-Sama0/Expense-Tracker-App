@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../config';
+import './AddExpense.css';
 
 const AddExpense = () => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [category, setCategory] = useState('');
     const [date, setDate] = useState('');    
+    const [message, setMessage]=useState('');
 
 
     const handleSubmit = async (e) => {
@@ -23,7 +25,11 @@ const AddExpense = () => {
                     date: dateStr // YYYY-MM-DD
                 }, 
             );
-            console.log(response.data);
+            console.log(response.data.message);
+
+            setMessage(response.data.message);
+
+
 
             setDescription('');
             setAmount('');
@@ -46,7 +52,7 @@ const AddExpense = () => {
     return (
         <section id="add-expense">
             <h2>Add Expense</h2>
-            {description}
+            {message && <p>{<p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}</p>}
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
                 <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
@@ -57,7 +63,7 @@ const AddExpense = () => {
                     <option value="Bill">Bill</option>
 
                 </select>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                <input placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
                 <button type="submit">Add</button>
                 <button type="reset" onClick={ ()=> resetSubmit() }>Cancel</button>
             </form>

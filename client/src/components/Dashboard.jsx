@@ -13,6 +13,7 @@ const Dashboard = () => {
     const [travelExpense, setTravelExpense]=useState(0);
     const [billExpense, setBillExpense]=useState(0);
     const [transaction, setTransaction] = useState([]);
+    
     async function fetchJson() {
 
         const request=await axios.get(`${API_URL}/showExpense`);
