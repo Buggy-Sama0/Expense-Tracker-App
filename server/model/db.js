@@ -13,6 +13,7 @@ const connectDB = async () => {
 
 // Create expense schema
 const expenseSchema = new mongoose.Schema({
+    userId: String,
     description: String,
     amount: Number,
     category: String,
@@ -25,4 +26,42 @@ const expenseSchema = new mongoose.Schema({
 // Create expense model
 const Expense = mongoose.model('Expense', expenseSchema);
 
-module.exports = { connectDB, Expense };
+// Create user schema
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: 3
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6
+    },
+    firstName: {
+        type: String,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        trim: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Create user model
+const User = mongoose.model('User', userSchema);
+
+module.exports = { connectDB, Expense, User };

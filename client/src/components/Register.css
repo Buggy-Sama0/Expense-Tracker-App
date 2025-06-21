@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+html, body {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.register-container {
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    padding: 1.5rem;
+    background: none;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.register-box {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    border: 1.5px solid #e3e6fa;
+    width: 100%;
+    max-width: 600px;
+    transition: box-shadow 0.3s, border 0.3s, background 0.3s;
+}
+
+.register-box:hover {
+    box-shadow: 0 28px 60px rgba(107, 115, 255, 0.12);
+    border: 1.5px solid #6B73FF;
+    background: #f8faff;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.register-header h2 {
+    color: #1a1a1a;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.register-header p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #444;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s, background 0.3s;
+    background: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #6B73FF;
+    box-shadow: 0 0 0 4px rgba(107, 115, 255, 0.1);
+}
+
+.terms-section {
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #e1e1e1;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.3s, background 0.3s, transform 0.2s;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 115, 255, 0.4);
+}
+
+.register-btn:active {
+    transform: translateY(0);
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-link {
+    color: #6B73FF;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover {
+    color: #000DFF;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .register-box {
+        padding: 2rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .register-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .form-group input {
+        padding: 0.8rem 1rem 0.8rem 2.5rem;
+    }
+}
+
+/* Animation for form elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
+}

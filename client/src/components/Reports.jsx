@@ -12,6 +12,9 @@ import './Reports.css'
 
 const Reports = () => {
 
+    const token = localStorage.getItem('token');
+    
+
     const [allExpenses, setAllExpenses]=useState([]);
     const [expenses, setExpenses]=useState([]);
     const [startDate, setStartDate]= useState(new Date());
@@ -232,7 +235,13 @@ const Reports = () => {
     // Fetch initial data
     useEffect( () => {
         async function fetchExpense() {            
-            const response=await axios.get(`${API_URL}/showExpense`);
+            const response=await axios.get(`${API_URL}/showExpense`, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                },
+            );
             //console.log(response.data);
             
             setAllExpenses(response.data);

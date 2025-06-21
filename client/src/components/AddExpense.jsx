@@ -18,14 +18,21 @@ const AddExpense = () => {
  
         // Create date in YYYY-MM-DD format (timezone-neutral)
         const dateStr = new Date(date).toISOString().split('T')[0];
+        const token=localStorage.getItem('token')
 
         try {            
             const response=await axios.post(`${API_URL}/addExpense`, 
                 {description, amount, category, 
                     date: dateStr // YYYY-MM-DD
                 }, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+                
             );
-            console.log(response.data.message);
+            console.log(response.data);
 
             setMessage(response.data.message);
 

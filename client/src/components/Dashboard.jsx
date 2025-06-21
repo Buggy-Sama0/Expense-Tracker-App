@@ -13,10 +13,17 @@ const Dashboard = () => {
     const [travelExpense, setTravelExpense]=useState(0);
     const [billExpense, setBillExpense]=useState(0);
     const [transaction, setTransaction] = useState([]);
+
+    const token=localStorage.getItem('token')
     
     async function fetchJson() {
-
-        const request=await axios.get(`${API_URL}/showExpense`);
+        const request=await axios.get(`${API_URL}/showExpense`, 
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        );
         return request;
         
     }
@@ -65,7 +72,15 @@ const Dashboard = () => {
     async function deleteExpense(name) {
 
         try {
-            await axios.delete(`${API_URL}/deleteExpense/${encodeURIComponent(name)}`);
+            const response=await axios.delete(`${API_URL}/deleteExpense/${encodeURIComponent(name)}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                },
+            );
+            console.log(response.data);
+            
             showExpenseList();
 
         } catch(err) {

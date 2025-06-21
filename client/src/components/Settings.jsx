@@ -34,7 +34,7 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        console.log(localStorage.getItem('budget'));
+        //console.log(localStorage.getItem('budget'));
         
     }, [])
         
@@ -47,7 +47,7 @@ const Settings = () => {
             {message && <p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}
 
             <form id="budgetForm" onSubmit={handleSubmit}>
-                <label for="totalBudget">Total Budget:</label>
+                <label htmlFor="totalBudget">Total Budget:</label>
                 <input value={budget}  onChange={(e) => setBudget(e.target.value)} type="number" id="totalBudget" required/>
                 <button type="submit">Set Budget</button>
                 <button type="reset" onClick={ () => {

@@ -3,6 +3,11 @@
     to {transform: translateY(0px);}
 }
 
+body.dashboard-bg, #dashboard-bg {
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
 #dashboard {
     animation: slideUp 0.4s ease-out;
 }

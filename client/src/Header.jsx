@@ -1,8 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 
 const Header = () => {
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
+    };
+
     return (
         <header className="header">
             <div className="header-content">
@@ -33,6 +42,12 @@ const Header = () => {
                     >
                         Settings
                     </NavLink>
+                    <div className="user-section">
+                        <span className="username">Welcome, {user.username || 'User'}</span>
+                        <button className="logout-btn" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </div>
                 </nav>
             </div>
         </header>
