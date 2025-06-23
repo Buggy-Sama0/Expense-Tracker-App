@@ -72,6 +72,14 @@ const Dashboard = () => {
     async function deleteExpense(name) {
 
         try {
+
+            let result=confirm("Are u sure")
+
+            if(!result) {
+                showExpenseList();
+                return 
+            }
+
             const response=await axios.delete(`${API_URL}/deleteExpense/${encodeURIComponent(name)}`,
                 {
                     headers: {
@@ -79,9 +87,7 @@ const Dashboard = () => {
                     }
                 },
             );
-            if (response) {
-                window.confirm('Are you sure?')
-            }
+            
             console.log(response.data);
             
             showExpenseList();
