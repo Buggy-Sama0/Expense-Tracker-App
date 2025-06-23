@@ -9,7 +9,6 @@ html, body {
 
 .register-container {
     min-height: 100vh;
-    height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -18,12 +17,6 @@ html, body {
     padding: 1.5rem;
     background: none;
     box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
 }
 
 .register-box {
@@ -168,6 +161,23 @@ html, body {
 
 .login-link:hover {
     color: #000DFF;
+}
+
+.success-message {
+    background-color: #e6f9ed;
+    color: #15803d;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1.5px solid #34d399;
+    box-shadow: 0 2px 8px rgba(52, 211, 153, 0.08);
+    font-weight: 500;
 }
 
 /* Responsive Design */

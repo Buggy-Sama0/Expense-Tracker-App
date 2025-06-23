@@ -79,6 +79,9 @@ const Dashboard = () => {
                     }
                 },
             );
+            if (response) {
+                window.confirm('Are you sure?')
+            }
             console.log(response.data);
             
             showExpenseList();

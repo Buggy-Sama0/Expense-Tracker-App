@@ -137,9 +137,9 @@ app.post('/api/login', async (req, res) => {
                 token,
                 user
             })
-
-            
         } 
+
+        return res.status(401).json({message:'Invalid Credentials'})
         
         //res.redirect('/api/showExpense')
       

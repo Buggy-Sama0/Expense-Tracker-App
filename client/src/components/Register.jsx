@@ -30,6 +30,8 @@ export default function Register() {
 
     const [formData, dispatch]=useReducer(formReducer, initialState);
     const [error, setError]=useState('')
+    const [message, setMessage]=useState('')
+    const [errorCondition, setCondition]=useState()
 
     const handleChange=(e) => {
         dispatch({
@@ -47,6 +49,7 @@ export default function Register() {
             if (formData.password!==e.target.confirmPassword.value) {
                 console.log('mpt match');
                 setError('Password not match')
+                setCondition(true)
                 return
             }
 
@@ -57,15 +60,25 @@ export default function Register() {
                 email: formData.email,
                 password: formData.password
             });
+
+            if (response) {
+                e.target.password.value=''
+                e.target.confirmPassword.value=''
+                e.target.lastName.value=''
+                e.target.firstName.value=''
+                e.target.email.value=''
+                e.target.username.value=''
+            }
+
+            setMessage(response.data.message)
+            setCondition(false)
             
             console.log(response.data);
         } catch(err) {
             console.log('error in the client side', err);            
             console.log(formData);    
-        }
-    
+        } 
     }
-
 
 
     return (
@@ -76,7 +89,8 @@ export default function Register() {
                     <p>Start managing your expenses today</p>
                 </div>
 
-                 {error && <div className="error-message">{error}</div>}
+                 {errorCondition?error && <div className="error-message">{error}</div>:
+                    message && <div className="success-message">{message}</div>}
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-row">
