@@ -49,24 +49,28 @@ const Header = () => {
                         to="/dashboard" 
                         className={({ isActive }) => isActive ? 'active' : ''}
                     >
+                        <span className="nav-icon" role="img" aria-label="dashboard">📊</span>
                         Dashboard
                     </NavLink>
                     <NavLink 
                         to="/add-expense"
                         className={({ isActive }) => isActive ? 'active' : ''}
                     >
+                        <span className="nav-icon" role="img" aria-label="add-expense">➕</span>
                         Add Expense
                     </NavLink>
                     <NavLink 
                         to="/reports"
                         className={({ isActive }) => isActive ? 'active' : ''}
                     >
+                        <span className="nav-icon" role="img" aria-label="reports">📑</span>
                         Reports
                     </NavLink>
                     <NavLink 
                         to="/settings"
                         className={({ isActive }) => isActive ? 'active' : ''}
                     >
+                        <span className="nav-icon" role="img" aria-label="settings">⚙️</span>
                         Settings
                     </NavLink>
                     <div className="user-section">
