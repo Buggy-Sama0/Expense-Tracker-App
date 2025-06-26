@@ -67,6 +67,8 @@
     align-items: center;
     gap: 1.2rem;
     margin-left: 1.5rem;
+    flex-wrap: wrap;
+    min-width: 0;
 }
 
 .username {
@@ -74,7 +76,7 @@
     color: #3b2285;
     font-weight: 700;
     font-size: 1.13rem;
-    padding: 0.6rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 999px;
     box-shadow: 0 4px 16px 0 rgba(59, 34, 133, 0.13), 0 1.5px 6px 0 rgba(59, 34, 133, 0.08);
     margin-right: 0.5rem;
@@ -87,6 +89,34 @@
     animation: fadeInWelcome 0.7s, pulseWelcome 2.5s infinite;
     position: relative;
     overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    word-break: break-word;
+}
+@media (max-width: 600px) {
+    .user-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.7rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    .username {
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+        margin-right: 0;
+        justify-content: center;
+        width: 100%;
+        min-width: 0;
+        text-align: center;
+    }
+    .header .logout-btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        margin: 0 auto;
+        display: block;
+    }
 }
 
 .username::before {
