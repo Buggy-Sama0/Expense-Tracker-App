@@ -150,16 +150,22 @@ app.post('/api/login', async (req, res) => {
 });
 
 
-/*
+
 // Protected route to get user profile
 app.get('/api/user', auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId).select('-password');
+        const user = await User.findById(req.user.id)
+        .select('username')
+
         res.json(user);
     } catch (err) {
-        res.status(500).json({ message: 'Error fetching user data' });
+        console.log(req.user.id);
+        
+        res.status(500).json({ message: 'Error fetching user data',
+            data: req.user.id
+         });
     }
-});*/
+});
 
 // Dashboard route
 /*

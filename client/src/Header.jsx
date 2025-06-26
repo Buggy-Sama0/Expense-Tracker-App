@@ -1,16 +1,43 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import {useState, useEffect} from 'react'
+import axios from 'axios';
+import { API_URL } from './config';
 import './Header.css';
 
 
 const Header = () => {
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const token=localStorage.getItem('token')
+    const [userName, setUserName]=useState('')
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         navigate('/');
     };
+
+    useEffect(()=> {
+
+        const fetchUser= async () => {
+
+            try {
+                const response=await axios.get(`${API_URL}/user`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                )
+                setUserName(response.data.username)
+                console.log(response.data); 
+            
+            } catch(error) {
+                console.log(error.response.data);
+                
+            }
+        }
+        fetchUser()    
+    })
 
     return (
         <header className="header">
@@ -43,7 +70,7 @@ const Header = () => {
                         Settings
                     </NavLink>
                     <div className="user-section">
-                        <span className="username">Welcome, {user.username || 'User'}</span>
+                        <span className="username">Welcome, {userName|| 'User'}</span>
                         <button className="logout-btn" onClick={handleLogout}>
                             Logout
                         </button>
