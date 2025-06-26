@@ -99,6 +99,9 @@ const Reports = () => {
             case 'Food':
                 x=array.filter((expense) => expense.category==category);
                 break;
+            case 'Utility':
+                x=array.filter((expense) => expense.category==category);
+                break;
         }
 
         //console.log(x); 
@@ -271,6 +274,7 @@ const Reports = () => {
                     <option value="Food">Food</option>
                     <option value="Travel">Travel</option>
                     <option value="Bill">Bill</option>
+                    <option value="Utility">Utility</option>
 
             </select>
 

@@ -68,6 +68,7 @@ const AddExpense = () => {
                     <option value="Food">Food</option>
                     <option value="Travel">Travel</option>
                     <option value="Bill">Bill</option>
+                    <option value="Utility">Utility</option>
 
                 </select>
                 <input placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />

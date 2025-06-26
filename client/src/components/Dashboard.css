@@ -194,6 +194,36 @@ table button:hover {
     transform: scale(1.05);
 }
 
+/* Dialog Box Style  */
+
+::backdrop {
+    background-image: linear-gradient(
+        45deg,
+        gray
+    );
+    opacity: 0.75;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------ */
+
+
+
+
+
+
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .total-expenses {

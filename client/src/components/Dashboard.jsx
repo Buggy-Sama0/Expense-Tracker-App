@@ -1,8 +1,9 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import axios from 'axios';
 import { Line, Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { API_URL } from '../config';
+import DialoBox from './DialogBox';
 
 import './Dashboard.css'
 
@@ -12,7 +13,10 @@ const Dashboard = () => {
     const [foodExpense, setFoodExpense]=useState(0);
     const [travelExpense, setTravelExpense]=useState(0);
     const [billExpense, setBillExpense]=useState(0);
+    const [utilityExpense, setUtilityExpense]=useState(0);
     const [transaction, setTransaction] = useState([]);
+    const dialogRef=useRef();
+    //const [confirmDelete, setConfirmDelete]=useState(false)
 
     const token=localStorage.getItem('token')
     
@@ -68,13 +72,44 @@ const Dashboard = () => {
         fetchApiData();
         getDataForPie() ;
         
-    }    // delete expense function
+    }    
+
+    /*
+    const openDialog = () => {
+        dialogRef.current.showModal()
+    }
+
+    const closeDialog = () => {
+        dialogRef.current.close() 
+    }
+
+    const handleCancel= () => {
+       setConfirmDelete(false)
+       console.log(confirmDelete);
+       closeDialog()
+    }
+
+    const handleDelete= () => {
+        setConfirmDelete(true)
+        console.log(confirmDelete);
+        closeDialog()
+    }*/
+    
+    // delete expense function
     async function deleteExpense(name) {
 
         try {
-
             let result=confirm("Are u sure")
+            //openDialog();
+            //console.log(confirmDelete);
+            
+            /*
+            if (!confirmDelete) {
+                showExpenseList();
+                return 
+            }*/
 
+            
             if(!result) {
                 showExpenseList();
                 return 
@@ -95,9 +130,8 @@ const Dashboard = () => {
         } catch(err) {
             console.log("Error:", err.message);
             
-        }
+        } 
     }
-
 
     // to divide expense by categories
     async function getDataForPie() {
@@ -106,7 +140,7 @@ const Dashboard = () => {
             const response = await fetchJson();
             const jsonObj = await response.data;
 
-            let bill = 0, food = 0, travel = 0;
+            let bill = 0, food = 0, travel = 0, utility=0;
             
             // Calculate totals
             jsonObj.forEach(item => {
@@ -114,6 +148,7 @@ const Dashboard = () => {
                     case 'Bill': bill += item.amount; break;
                     case 'Food': food += item.amount; break;
                     case 'Travel': travel += item.amount; break;
+                    case 'Utility': utility += item.amount; break;
                 }
             });
 
@@ -121,6 +156,7 @@ const Dashboard = () => {
             setBillExpense(bill);
             setFoodExpense(food);
             setTravelExpense(travel);
+            setUtilityExpense(utility)
 
             /*console.log('Expense Totals:', {
                 OTT: ottExpense,
@@ -141,11 +177,12 @@ const Dashboard = () => {
         labels: ['Food', 'Travel', 'Bill'],
         datasets: [
             {
-                data: [foodExpense, travelExpense, billExpense],
+                data: [foodExpense, travelExpense, billExpense, utilityExpense],
                 backgroundColor: [
                     'rgb(239, 68, 68)',  // Red for Food
                     'rgb(59, 130, 246)', // Blue for Travel
-                    'rgb(245, 158, 11)'  // Orange for Bill
+                    'rgb(245, 158, 11)',  // Orange for Bill
+                    'rgb(63, 193, 30)'  // Orange for Bill
                 ],
                 borderColor: 'white',
                 borderWidth: 2,
@@ -188,6 +225,10 @@ const Dashboard = () => {
     }, [transaction]);
     */
 
+
+
+
+
     // UI Design
     return (
         <section id="dashboard">
@@ -211,13 +252,36 @@ const Dashboard = () => {
                         <span style={{ color: 'rgb(245, 158, 11)' }}>●</span>
                         <span>Bill: ${billExpense}</span>
                     </div>
+                    <div className="chart-legend-item">
+                        <span style={{ color: 'rgb(63, 193, 30)' }}>●</span>
+                        <span>Utility: ${utilityExpense}</span>
+                    </div>
                 </div>
             </div>
+
+            {/*
+            <dialog ref={dialogRef}> 
+                <button onClick={closeDialog} autofocus>Close</button>
+                <p>This modal dialog has a groovy backdrop!</p>
+                <button onClick={handleCancel}>Cancel</button>
+                <button onClick={handleDelete}>Delete</button>
+            </dialog>
+            <button onClick={openDialog}>Show the dialog</button>
+            */}
+
+            <p>{dialogRef.returnValue}</p>
             <div className="recent-transactions">
                 <h3>Recent Transactions</h3>
                 <button className="byyn" onClick={() => showExpenseList() }>Click Me</button>
                 <button className="byyn" onClick={() => setTransaction([]) }>Clear</button>
                 
+                {/*
+                <dialog> 
+                    <button autofocus>Close</button>
+                    <p>This modal dialog has a groovy backdrop!</p>
+                </dialog>
+                <button onClick={()=> openDialog()}>Show the dialog</button>
+                */}
                 <table>
                     <thead>
                         <tr>
