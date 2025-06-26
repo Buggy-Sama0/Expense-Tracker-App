@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import './Settings.css';
 //import axios from 'axios';
 
@@ -33,10 +33,12 @@ const Settings = () => {
         }
     }
 
-    useEffect(() => {
-        //console.log(localStorage.getItem('budget'));
-        
-    }, [])
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/';
+    };
         
     return (
         <section id="settings">
@@ -55,6 +57,10 @@ const Settings = () => {
                     setMessage('');}  }>Cancel</button>
             </form>
 
+            <button className="logout-btn" onClick={handleLogout}>
+                <span className="logout-icon" role="img" aria-label="logout">🔒</span>
+                Logout
+            </button>
         </section>
     );
 };

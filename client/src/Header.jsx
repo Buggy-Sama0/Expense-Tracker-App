@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import {useState, useEffect} from 'react'
 import axios from 'axios';
 import { API_URL } from './config';
@@ -6,15 +6,10 @@ import './Header.css';
 
 
 const Header = () => {
-    const navigate = useNavigate();
     const token=localStorage.getItem('token')
     const [userName, setUserName]=useState('')
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        navigate('/');
-    };
+
 
     useEffect(()=> {
 
@@ -75,9 +70,6 @@ const Header = () => {
                     </NavLink>
                     <div className="user-section">
                         <span className="username">Welcome, {userName|| 'User'}</span>
-                        <button className="logout-btn" onClick={handleLogout}>
-                            Logout
-                        </button>
                     </div>
                 </nav>
             </div>
