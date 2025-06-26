@@ -10,6 +10,7 @@ import Register from './components/Register'
 import { API_URL } from './config';
 import './App.css';
 import { useLocation } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 
 const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem('token');
@@ -38,6 +39,7 @@ const PublicRoute = ({ children }) => {
 const App = () => {
     return (
         <Router>
+            <Analytics />
             <div className="app">
                 <main>
                     <Routes>
