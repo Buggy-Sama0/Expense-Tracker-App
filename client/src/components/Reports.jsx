@@ -77,6 +77,9 @@ const Reports = () => {
             return expenseDate >= startDate && expenseDate <= endDate;
         });
 
+        console.log(filtered);
+        
+
         if (category==='') {
             setExpenses(sortArray(filtered));
             return;       
@@ -117,69 +120,22 @@ const Reports = () => {
 
     // for line graph plotting
     function getDataForLine() {
-
-        let label=[]
-        let data=[];
-
-        let testList=[]
-        
-        /*
-        for (let item of expenses) {   
-            data.push(item.amount)
-
-            label.push(item.date.slice(8,10))
-        }*/
-
-        //console.log(expenses[2]);
-
-        for (let item of expenses) {   
-            testList.push(item)
-        }
-        //console.log(testList);
-
-        for (let i=0;i<testList.length;i++) {
-            let total=0
-
-            for(let j=i+1;j<testList.length;j++) {
-
-                if(testList[i].date===testList[j].date) {
-                    total+=testList[j].amount;
-                    const index=testList.indexOf(testList[j])
-
-                    if (index!==-1) {
-                        testList.splice(index, 1)
-                    }
-                }
+        // Group expenses by date and sum amounts
+        const dateMap = {};
+        expenses.forEach(exp => {
+            const date = exp.date.slice(5, 10); // YYYY-MM-DD
+            if (!dateMap[date]) {
+                dateMap[date] = 0;
             }
-            data.push(testList[i].amount+total)
-            label.push(testList[i].date.slice(8,10))
- 
-        }
-        //console.log(data);
+            dateMap[date] += exp.amount;
+            console.log(dateMap[date]);   
+        });
 
+        const label = Object.keys(dateMap);
+        const data = Object.values(dateMap);
 
-        /*
-        for (let i=startDate.getDate();i<endDate.getDate()+1;i++) {
-            label.push(i)
-        }*/
-       /*
-        let x=[1,4,6,2,3,10,9,8,0]
-
-        for (let i=0;i<x.length;i++) {
-            for(let j=i+1;j<x.length;j++) {
-                if (x[i]>x[j]) {
-                    let temp=x[i];
-                    x[i]=x[j]
-                    x[j]=temp;
-                }
-            }
-        }
-
-        console.log(x);*/
-        
-        setLabelData(label)
+        setLabelData(label); // Just the day part for labels
         setLineData(data);
- 
         //console.log(endDate.getDate());
         //console.log(selectionRange);
     }
