@@ -37,7 +37,7 @@ const Header = () => {
     return (
         <header className="header">
             <div className="header-content">
-                <h1>💰 Expense Tracker</h1>
+                <h1 className="header-title">💰 Expense Tracker</h1>
 
                 <nav>
                     <NavLink 

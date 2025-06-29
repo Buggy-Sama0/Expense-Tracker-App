@@ -206,10 +206,30 @@ const Dashboard = () => {
     // UI Design
     return (
         <section id="dashboard">
-            <h2>Budget: ${localStorage.getItem('budget')-amount}</h2><br/>
-            <h2>Total Expenses: ${amount}</h2>
+            <div className="dashboard-cards-container">
+                <div className="dashboard-card budget-card">
+                    <div className="dashboard-card-icon" style={{background: 'linear-gradient(135deg, #60a5fa 60%, #6366f1 100%)'}}>
+                        {/* Wallet SVG icon */}
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M20 7V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1h-7a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h7Zm-7 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9v-4h-9Zm7 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                    </div>
+                    <div className="dashboard-card-label">Budget Left</div>
+                    <div className="dashboard-card-value budget-value">
+                        <span className="dashboard-currency">$</span>{localStorage.getItem('budget')-amount}
+                    </div>
+                </div>
+                <div className="dashboard-card expense-card">
+                    <div className="dashboard-card-icon" style={{background: 'linear-gradient(135deg, #f43f5e 60%, #f59e42 100%)'}}>
+                        {/* Receipt SVG icon */}
+                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M19 2H5a2 2 0 0 0-2 2v18l3-3 3 3 3-3 3 3 3-3 3 3V4a2 2 0 0 0-2-2Zm-2 14H7v-2h10v2Zm0-4H7V8h10v4Z"/></svg>
+                    </div>
+                    <div className="dashboard-card-label">Total Expenses</div>
+                    <div className="dashboard-card-value expense-value">
+                        <span className="dashboard-currency">$</span>{amount}
+                    </div>
+                </div>
+            </div>
             <div className="budget-overview">
-                <h3>Expense Overview</h3>
+                <h3 className="expense-overview-heading">Expense Overview</h3>
                 <div className="chart-container">
                     <Pie data={data} options={chartOptions} />
                 </div>

@@ -1,3 +1,36 @@
+/* Distinct Expense Overview Heading */
+.expense-overview-heading {
+    font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #fff;
+    background: linear-gradient(90deg, #6366f1 0%, #60a5fa 60%, #f43f5e 100%);
+    padding: 0.5em 2.2em 0.5em 1.5em;
+    border-radius: 2em 0.7em 2em 0.7em;
+    box-shadow: 0 8px 32px 0 rgba(99,102,241,0.13), 0 1.5px 6px 0 rgba(244,63,94,0.10);
+    border: 2.5px solid #e0e7ff;
+    display: inline-block;
+    margin-bottom: 1.7rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+    overflow: hidden;
+}
+.expense-overview-heading::after {
+    content: '';
+    position: absolute;
+    right: 0.7em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2em;
+    height: 1.2em;
+    background: radial-gradient(circle, #fff 60%, #60a5fa 100%);
+    border-radius: 50%;
+    opacity: 0.18;
+    z-index: 1;
+}
 @keyframes display {
     from {transform: translateY(10px);}
     to {transform: translateY(0px);}
@@ -28,35 +61,160 @@ body.dashboard-bg, #dashboard-bg {
     margin-bottom: var(--space-2);
 }
 
-/* Chart Section */
-.budget-overview {
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow);
+
+/* Dashboard Cards (Budget & Total Expenses) */
+.dashboard-cards-container {
+    display: flex;
+    gap: 2rem;
     margin-bottom: var(--space-8);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Enhanced Appealing Card Style */
+.dashboard-card {
+    background: linear-gradient(135deg, #f0f4ff 60%, #e0e7ff 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 6px 0 rgba(59, 34, 133, 0.10);
+    padding: 2.5rem 2.8rem 1.7rem 2.8rem;
+    min-width: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    border: 2px solid #e0e7ff;
+    transition: box-shadow 0.2s, transform 0.2s, border 0.2s, background 0.2s;
+    overflow: hidden;
 }
+.dashboard-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 60%, #60a5fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 2px 8px 0 rgba(59, 34, 133, 0.13);
+    border: 2.5px solid #fff;
+}
+.dashboard-card-icon img, .dashboard-card-icon svg {
+    width: 32px;
+    height: 32px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(99,102,241,0.13));
+}
+.dashboard-card:hover {
+    box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.22), 0 4px 12px 0 rgba(59, 34, 133, 0.13);
+    transform: translateY(-6px) scale(1.05);
+    border-color: #6366f1;
+    background: linear-gradient(135deg, #e0e7ff 60%, #f0f4ff 100%);
+}
+.dashboard-card-label {
+    font-size: 1.15rem;
+    color: #6366f1;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+    background: rgba(99,102,241,0.08);
+    padding: 0.3em 1.2em;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.07);
+}
+.dashboard-card-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #22223b;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.2em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    text-shadow: 0 2px 8px #e0e7ff, 0 1px 2px #fff;
+}
+.dashboard-currency {
+    font-size: 1.3rem;
+    color: #6366f1;
+    font-weight: 700;
+    margin-right: 0.1em;
+}
+.budget-card .dashboard-card-value {
+    color: #2563eb;
+    text-shadow: 0 2px 8px #e0e7ff, 0 1px 2px #fff;
+}
+.expense-card .dashboard-card-value {
+    color: #f43f5e;
+    text-shadow: 0 2px 8px #fee2e2, 0 1px 2px #fff;
+}
+
+@media (max-width: 768px) {
+    .dashboard-cards-container {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+    }
+    .dashboard-card {
+        min-width: 180px;
+        padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    }
+}
+
+/* Chart Section */
+.budget-overview {
+    background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+    border-radius: 2rem;
+    padding: 2.5rem 2rem 2rem 2rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 6px 0 rgba(59, 34, 133, 0.10);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2.5px solid #e0e7ff;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+}
+
+.budget-overview::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #6366f1 0%, #60a5fa 60%, transparent 100%);
+    opacity: 0.13;
+    z-index: 0;
+}
+
 
 .budget-overview h3 {
     text-align: center;
-    margin-bottom: var(--space-4);
-    color: var(--gray-800);
-    font-size: var(--font-size-xl);
+    margin-bottom: 1.5rem;
+    color: #22223b;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    z-index: 1;
 }
 
 .chart-container {
     width: 100%;
-    max-width: 500px;
-    min-height: 400px;
-    margin: var(--space-4) auto;
-    padding: var(--space-4);
+    max-width: 480px;
+    min-height: 340px;
+    margin: 1.5rem auto 0 auto;
+    padding: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(255,255,255,0.85);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 18px 0 rgba(99,102,241,0.07);
     position: relative;
+    z-index: 1;
+    border: 1.5px solid #e0e7ff;
+    transition: box-shadow 0.2s, border 0.2s, background 0.2s;
 }
 
 /* Make chart responsive and maintain aspect ratio */
@@ -73,27 +231,86 @@ body.dashboard-bg, #dashboard-bg {
 .budget-overview .chart-legend {
     display: flex;
     justify-content: center;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
+    gap: 1.2rem;
+    margin-top: 1.7rem;
     flex-wrap: wrap;
+    z-index: 1;
 }
 
 .chart-legend-item {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: var(--gray-50);
-    border-radius: var(--radius);
-    font-size: var(--font-size-sm);
+    gap: 0.7em;
+    padding: 0.5em 1.2em;
+    background: linear-gradient(90deg, #f1f5ff 60%, #e0e7ff 100%);
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3b2285;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.07);
+    border: 1.5px solid #e0e7ff;
+    transition: background 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+}
+.chart-legend-item::before {
+    content: '';
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 50%;
+    margin-right: 0.6em;
+    background: var(--legend-color, #6366f1);
+    box-shadow: 0 1px 4px 0 rgba(99,102,241,0.13);
+}
+.chart-legend-item span {
+    position: relative;
+    z-index: 2;
 }
 
 /* Table Styles */
 .recent-transactions {
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow);
+    background: linear-gradient(120deg, #f8fafc 60%, #e0e7ff 100%);
+    border-radius: 1.7rem;
+    padding: 2.5rem 2rem 1.7rem 2rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 6px 0 rgba(59, 34, 133, 0.10);
+    border: 2.5px solid #e0e7ff;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+}
+.recent-transactions::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #6366f1 0%, #60a5fa 60%, transparent 100%);
+    opacity: 0.10;
+    z-index: 0;
+}
+.recent-transactions::after {
+    content: '';
+    position: absolute;
+    left: -50px;
+    bottom: -50px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, #f43f5e 0%, #fbbf24 60%, transparent 100%);
+    opacity: 0.08;
+    z-index: 0;
+}
+.recent-transactions h2, .recent-transactions h3 {
+    color: #2d217c;
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 12px #e0e7ff, 0 1px 2px #fff;
+    z-index: 1;
 }
 
 table {

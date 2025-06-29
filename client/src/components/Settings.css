@@ -42,123 +42,167 @@
         font-size: 1rem;
     }
 }
-/* Settings Component Styles */
+/* Settings Component Styles - Modern Redesign */
 #settings {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: var(--space-6);
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    animation: slideUp 0.4s ease-out;
+    max-width: 520px;
+    margin: 2.5rem auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(60, 72, 100, 0.13), 0 2px 8px 0 rgba(60, 72, 100, 0.08);
+    animation: slideUp 0.5s cubic-bezier(.23,1.01,.32,1) 1;
+    border: 1.5px solid #e0e7ff;
+    position: relative;
+    overflow: hidden;
+}
+
+#settings::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #6366f1 0%, #a5b4fc 100%);
+    opacity: 0.13;
+    z-index: 0;
+    border-radius: 50%;
 }
 
 #settings h1 {
-    color: var(--gray-900);
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--space-4);
+    color: #3730a3;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.7rem;
     text-align: center;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #6366f1 30%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    z-index: 1;
+    position: relative;
 }
 
 #settings h3 {
-    color: var(--gray-700);
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--space-6);
+    color: #6366f1;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 2.2rem;
     text-align: center;
+    letter-spacing: 0.2px;
+    z-index: 1;
+    position: relative;
 }
 
 /* Form Styles */
+/* Modern Form Styles */
 #budgetForm {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
-    margin-top: var(--space-6);
+    gap: 1.5rem;
+    margin-top: 2.2rem;
+    background: rgba(255,255,255,0.85);
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px 0 rgba(99,102,241,0.07);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 #budgetForm label {
-    font-size: var(--font-size-lg);
-    color: var(--gray-700);
-    font-weight: 500;
+    font-size: 1.08rem;
+    color: #3730a3;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.1px;
 }
 
 #budgetForm input {
-    padding: var(--space-4);
-    border: 2px solid var(--gray-200);
-    border-radius: var(--radius);
-    font-size: var(--font-size-lg);
-    transition: var(--transition-all);
-    background: var(--gray-50);
+    padding: 0.9rem 1.1rem;
+    border: 1.5px solid #c7d2fe;
+    border-radius: 0.7rem;
+    font-size: 1.08rem;
+    background: #f1f5f9;
+    transition: border 0.2s, box-shadow 0.2s;
+    color: #373737;
+    margin-bottom: 0.2rem;
 }
 
 #budgetForm input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-light);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2.5px #a5b4fc;
     outline: none;
 }
 
 #budgetForm input:hover {
-    border-color: var(--gray-400);
-}
-
-/* Button Container */
-#budgetForm {
-    position: relative;
+    border-color: #818cf8;
 }
 
 #budgetForm button {
-    padding: var(--space-3) var(--space-6);
-    border-radius: var(--radius);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    transition: var(--transition-all);
-    margin-top: var(--space-2);
+    padding: 0.85rem 0;
+    border-radius: 0.7rem;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.07);
+    border: none;
+    letter-spacing: 0.2px;
 }
 
 #budgetForm button[type="submit"] {
-    background: var(--primary);
-    color: white;
+    background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+    color: #fff;
     width: 100%;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.13);
 }
 
 #budgetForm button[type="submit"]:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
+    background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
+    transform: translateY(-1.5px) scale(1.03);
+    box-shadow: 0 4px 16px 0 rgba(99,102,241,0.18);
 }
 
 #budgetForm button[type="reset"] {
-    background: var(--gray-500);
-    color: white;
+    background: #e0e7ff;
+    color: #6366f1;
     width: 100%;
+    margin-top: 0.2rem;
 }
 
 #budgetForm button[type="reset"]:hover {
-    background: var(--gray-600);
+    background: #c7d2fe;
+    color: #3730a3;
 }
 
-/* Enhanced Message Styles */
+/* Enhanced Message Styles - Modern */
 .success, .error {
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius);
-    margin-bottom: var(--space-4);
-    font-weight: 500;
+    padding: 0.85rem 1.2rem;
+    border-radius: 0.7rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
+    gap: 0.7rem;
+    font-size: 1.05rem;
     animation: fadeIn 0.3s ease-out;
+    box-shadow: 0 1.5px 6px 0 rgba(99,102,241,0.08);
 }
 
 .success {
-    background-color: var(--success-light);
-    color: var(--success);
-    border: 1px solid var(--success-border);
+    background: linear-gradient(90deg, #d1fae5 0%, #bbf7d0 100%);
+    color: #059669;
+    border: 1.5px solid #6ee7b7;
 }
 
 .error {
-    background-color: var(--error-light);
-    color: var(--error);
-    border: 1px solid var(--error-border);
+    background: linear-gradient(90deg, #fee2e2 0%, #fecaca 100%);
+    color: #dc2626;
+    border: 1.5px solid #fca5a5;
 }
 
 /* Loading State */
@@ -204,60 +248,63 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Design */
+/* Responsive Design - Modern */
 @media (max-width: 768px) {
     #settings {
-        padding: var(--space-4);
-        margin: var(--space-4);
+        padding: 1.5rem 1rem 1rem 1rem;
+        margin: 1.5rem;
     }
-
     #settings h1 {
-        font-size: var(--font-size-2xl);
+        font-size: 1.5rem;
     }
-
     #settings h3 {
-        font-size: var(--font-size-lg);
+        font-size: 1rem;
     }
-
+    #budgetForm {
+        padding: 1.2rem 0.7rem 0.7rem 0.7rem;
+    }
     #budgetForm input {
-        padding: var(--space-3);
-        font-size: var(--font-size-base);
+        padding: 0.7rem 0.8rem;
+        font-size: 1rem;
+    }
+    #budgetForm button {
+        font-size: 1rem;
+        padding: 0.7rem 0;
     }
 }
 
 @media (max-width: 640px) {
     #settings {
-        margin: var(--space-4);
-        padding: var(--space-4);
+        margin: 1rem;
+        padding: 1rem;
     }
-
     #settings h1 {
-        font-size: var(--font-size-2xl);
+        font-size: 1.2rem;
     }
-
     #settings h3 {
-        font-size: var(--font-size-lg);
+        font-size: 0.95rem;
     }
-
+    #budgetForm {
+        padding: 0.7rem 0.3rem 0.3rem 0.3rem;
+    }
     #budgetForm input,
     #budgetForm button {
-        font-size: var(--font-size-base);
-        padding: var(--space-3);
+        font-size: 0.98rem;
+        padding: 0.6rem 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
     #settings {
-        padding: var(--space-3);
-        margin: var(--space-2);
+        padding: 0.5rem;
+        margin: 0.3rem;
     }
-
     #budgetForm {
-        gap: var(--space-3);
+        gap: 0.7rem;
+        padding: 0.3rem;
     }
-
     .success, .error {
-        padding: var(--space-2) var(--space-3);
-        font-size: var(--font-size-sm);
+        padding: 0.5rem 0.7rem;
+        font-size: 0.92rem;
     }
 }
