@@ -16,7 +16,6 @@ const Dashboard = () => {
     const [utilityExpense, setUtilityExpense]=useState(0);
     const [transaction, setTransaction] = useState([]);
     const dialogRef=useRef();
-    //const [confirmDelete, setConfirmDelete]=useState(false)
 
     const token=localStorage.getItem('token')
     
@@ -28,8 +27,7 @@ const Dashboard = () => {
                 }
             }
         );
-        return request;
-        
+        return request; 
     }
 
     // to show the total expense spent
@@ -49,7 +47,6 @@ const Dashboard = () => {
         setAmount(totalAmount);  
                
     }
-
 
     // Display the last few transactions
     async function showExpenseList() {
@@ -72,49 +69,31 @@ const Dashboard = () => {
         fetchApiData();
         getDataForPie() ;
         
-    }    
+    }   
 
-    /*
-    const openDialog = () => {
+    // Pop up dialog to confirm delete function
+    const openDialog = (name) => {
+        dialogRef.current.returnValue=name
         dialogRef.current.showModal()
     }
 
-    const closeDialog = () => {
-        dialogRef.current.close() 
+    // if 'Close' || 'Cancel' button is pressed will run this function
+    const closeDialog = (e) => {
+        dialogRef.current.close(e.target.textContent) 
+        //console.log(dialogRef.current.returnValue);
     }
 
-    const handleCancel= () => {
-       setConfirmDelete(false)
-       console.log(confirmDelete);
-       closeDialog()
+    // if 'Delete' button is pressed then deletes the record and closes the dialog
+    function handleDelete(e) {;
+        //console.log('Return Value:', dialogRef.current.returnValue);
+        deleteExpense(dialogRef.current.returnValue)
+        closeDialog(e)
     }
-
-    const handleDelete= () => {
-        setConfirmDelete(true)
-        console.log(confirmDelete);
-        closeDialog()
-    }*/
     
     // delete expense function
     async function deleteExpense(name) {
 
         try {
-            let result=confirm("Are u sure")
-            //openDialog();
-            //console.log(confirmDelete);
-            
-            /*
-            if (!confirmDelete) {
-                showExpenseList();
-                return 
-            }*/
-
-            
-            if(!result) {
-                showExpenseList();
-                return 
-            }
-
             const response=await axios.delete(`${API_URL}/deleteExpense/${encodeURIComponent(name)}`,
                 {
                     headers: {
@@ -124,7 +103,6 @@ const Dashboard = () => {
             );
             
             console.log(response.data);
-            
             showExpenseList();
 
         } catch(err) {
@@ -225,10 +203,6 @@ const Dashboard = () => {
     }, [transaction]);
     */
 
-
-
-
-
     // UI Design
     return (
         <section id="dashboard">
@@ -259,29 +233,27 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/*
+            
             <dialog ref={dialogRef}> 
-                <button onClick={closeDialog} autofocus>Close</button>
-                <p>This modal dialog has a groovy backdrop!</p>
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={handleDelete}>Delete</button>
+                <h2>Delete Transaction?</h2>
+                <p>Are you sure you want to delete this transaction? This action cannot be undone.</p>
+                <div className="dialog-actions">
+                    <button className="cancel" onClick={closeDialog} autoFocus>Cancel</button>
+                    <button className="confirm" onClick={handleDelete}>Delete</button>
+                </div>
             </dialog>
-            <button onClick={openDialog}>Show the dialog</button>
-            */}
 
-            <p>{dialogRef.returnValue}</p>
             <div className="recent-transactions">
                 <h3>Recent Transactions</h3>
                 <button className="byyn" onClick={() => showExpenseList() }>Click Me</button>
                 <button className="byyn" onClick={() => setTransaction([]) }>Clear</button>
                 
-                {/*
+                
                 <dialog> 
                     <button autofocus>Close</button>
                     <p>This modal dialog has a groovy backdrop!</p>
                 </dialog>
-                <button onClick={()=> openDialog()}>Show the dialog</button>
-                */}
+                
                 <table>
                     <thead>
                         <tr>
@@ -297,7 +269,7 @@ const Dashboard = () => {
                             <td>{data.description}</td> 
                             <td>{data.category}</td> 
                             <td>{data.amount}</td> 
-                            <td><button onClick={() => deleteExpense(data.description)}>delete</button></td>
+                            <td><button onClick={() => openDialog(data.description)}>delete</button></td>
                     </tr>   
                         
                     ))}

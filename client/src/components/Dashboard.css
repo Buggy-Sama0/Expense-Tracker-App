@@ -194,35 +194,102 @@ table button:hover {
     transform: scale(1.05);
 }
 
-/* Dialog Box Style  */
 
-::backdrop {
-    background-image: linear-gradient(
-        45deg,
-        gray
-    );
-    opacity: 0.75;
+/* Dialog Box Style  */
+@keyframes dialog-fade-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    padding: 2rem;
+    background: #fff;
+    z-index: 1000;
+    min-width: 340px;
+    max-width: 90vw;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 6px 0 rgba(59, 34, 133, 0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    animation: dialog-fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
 
+dialog::backdrop {
+    background: linear-gradient(120deg, #5b5b5c 0%, #524f51 100%);
+    opacity: 0.7;
+    backdrop-filter: blur(2px);
+}
 
+dialog h2 {
+    margin-top: 0;
+    color: #3b2285;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
 
+dialog p {
+    color: #444;
+    font-size: 1.08rem;
+    margin-bottom: 2rem;
+}
 
+dialog .dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
 
+dialog button {
+    padding: 0.7rem 1.7rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    box-shadow: 0 2px 8px 0 rgba(59, 34, 133, 0.08);
+}
 
+dialog button[autofocus], dialog button.confirm {
+    background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+    color: #fff;
+    border: none;
+}
 
+dialog button.confirm {
+    background: linear-gradient(90deg, #f60d66 0%, #c61726 100%);
+    color: #fff;
+}
 
+dialog button.cancel {
+    background: #e0e7ff;
+    color: #3b2285;
+    border: 1px solid #c7d2fe;
+}
 
-
+dialog button:hover, dialog button:focus {
+    filter: brightness(1.08) saturate(1.2);
+    transform: translateY(-2px) scale(1.04);
+    outline: none;
+}
 
 /* ------------------------------------ */
-
-
-
-
-
-
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -278,4 +345,11 @@ table button:hover {
         padding: var(--space-1) var(--space-2);
     }
 }
+
+
+.chart-legend-item {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+}
+
 
