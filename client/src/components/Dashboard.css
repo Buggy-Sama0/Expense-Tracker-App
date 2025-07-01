@@ -1,5 +1,5 @@
 /* Responsive fix for recent transactions table overflow and delete button on mobile */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .recent-transactions {
         overflow-x: auto;
         padding: 1.2rem 0.2rem 1.2rem 0.2rem;
