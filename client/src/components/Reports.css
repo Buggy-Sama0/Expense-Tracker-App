@@ -1,3 +1,34 @@
+/* Responsive fix for table and calendar overflow on mobile */
+@media (max-width: 600px) {
+    .report-card, .chart-container {
+        overflow-x: auto;
+    }
+    .report-card table, .chart-container table {
+        min-width: 500px;
+        width: 100%;
+        display: block;
+    }
+    .report-card table thead, .chart-container table thead {
+        display: table;
+        width: 100%;
+    }
+    .report-card table tbody, .chart-container table tbody {
+        display: table;
+        width: 100%;
+    }
+    .report-card table tr, .chart-container table tr {
+        display: table-row;
+    }
+    .report-card table th, .report-card table td,
+    .chart-container table th, .chart-container table td {
+        white-space: nowrap;
+    }
+    /* Calendar/DatePicker container fix */
+    .rdrCalendarWrapper, .daterangepicker {
+        max-width: 100vw;
+        overflow-x: auto;
+    }
+}
 
 
 /* Target preset options (adjust class based on your DateRangePicker) */
