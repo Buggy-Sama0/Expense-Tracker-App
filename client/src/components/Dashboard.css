@@ -3,17 +3,19 @@
     .recent-transactions {
         overflow-x: auto;
         padding: 1.2rem 0.2rem 1.2rem 0.2rem;
+        width: 100vw;
+        box-sizing: border-box;
     }
     .recent-transactions table {
-        min-width: 400px;
-        width: 100%;
-        display: table;
+        min-width: 520px;
+        width: max-content;
+        display: block;
     }
     .recent-transactions th, .recent-transactions td {
         white-space: nowrap;
         padding: 0.7rem 0.7rem;
-        max-width: 120px;
-        overflow: hidden;
+        max-width: 140px;
+        overflow: visible;
         text-overflow: ellipsis;
     }
     .recent-transactions td {
