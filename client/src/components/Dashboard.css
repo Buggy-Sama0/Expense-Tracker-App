@@ -1,3 +1,51 @@
+/* Responsive fix for recent transactions table overflow and delete button on mobile */
+@media (max-width: 600px) {
+    .recent-transactions {
+        overflow-x: auto;
+        padding: 1.2rem 0.2rem 1.2rem 0.2rem;
+    }
+    .recent-transactions table {
+        min-width: 520px;
+        width: max-content;
+        display: block;
+    }
+    .recent-transactions th, .recent-transactions td {
+        white-space: nowrap;
+        padding: 0.7rem 0.7rem;
+    }
+    .recent-transactions td {
+        max-width: 120px;
+        overflow: visible;
+        text-overflow: ellipsis;
+    /* Only target delete buttons in the table, not other buttons */
+    .recent-transactions td .delete-btn,
+    .recent-transactions td .delete-button,
+    .recent-transactions td button[type="button"],
+    .recent-transactions td button.delete {
+        min-width: 70px;
+        max-width: 100%;
+        white-space: nowrap;
+        font-size: 0.98rem;
+        padding: 0.5rem 0.7rem;
+        box-sizing: border-box;
+        margin: 0 auto;
+        display: block;
+        position: relative;
+        z-index: 2;
+    }
+    }
+    .recent-transactions td {
+        position: relative;
+        overflow: visible;
+    }
+    .recent-transactions::-webkit-scrollbar {
+        height: 8px;
+    }
+    .recent-transactions::-webkit-scrollbar-thumb {
+        background: #e0e7ff;
+        border-radius: 4px;
+    }
+}
 /* Distinct Expense Overview Heading */
 .expense-overview-heading {
     font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
