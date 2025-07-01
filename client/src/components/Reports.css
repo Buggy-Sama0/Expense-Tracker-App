@@ -1,3 +1,26 @@
+/* Fix for delete button overflow in recent transaction table on mobile */
+@media (max-width: 600px) {
+    .report-card, .chart-container {
+        overflow-x: auto;
+    }
+    .report-card table, .chart-container table {
+        min-width: 600px;
+    }
+    .delete-btn, .delete-button, td button[type="button"] {
+        min-width: 80px;
+        max-width: 100%;
+        white-space: nowrap;
+        font-size: 0.98rem;
+        padding: 0.5rem 0.7rem;
+        box-sizing: border-box;
+        margin: 0 auto;
+        display: block;
+    }
+    .report-card td {
+        position: relative;
+        overflow: visible;
+    }
+}
 /* Responsive fix for table and calendar overflow on mobile */
 @media (max-width: 600px) {
     .report-card, .chart-container {
