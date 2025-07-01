@@ -4,7 +4,15 @@
         overflow-x: auto;
     }
     .report-card table, .chart-container table {
-        min-width: 600px;
+        min-width: 100vw;
+        width: max-content;
+        display: block;
+    }
+    .report-card td, .chart-container td {
+        max-width: 120px;
+        overflow: visible;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .delete-btn, .delete-button, td button[type="button"] {
         min-width: 80px;
@@ -15,10 +23,18 @@
         box-sizing: border-box;
         margin: 0 auto;
         display: block;
-    }
-    .report-card td {
         position: relative;
-        overflow: visible;
+        z-index: 2;
+    }
+    .report-card {
+        padding-bottom: 1.5rem;
+    }
+    .report-card::-webkit-scrollbar {
+        height: 8px;
+    }
+    .report-card::-webkit-scrollbar-thumb {
+        background: #e0e7ff;
+        border-radius: 4px;
     }
 }
 /* Responsive fix for table and calendar overflow on mobile */
