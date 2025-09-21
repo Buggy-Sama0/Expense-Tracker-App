@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import axios from 'axios';
 import { API_URL } from '../config';
 
@@ -63,7 +63,12 @@ const ImgUploader=() => {
         const formData=new FormData()
         formData.append('ImgFile', file)
         try {
-            const response = await axios.post(`${API_URL}/processIMG`, formData
+            const response = await axios.post(`${API_URL}/processIMG`, formData, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                },
             );
             // Axios throws for non-2xx, so only check for data here
             console.log(response.data);
