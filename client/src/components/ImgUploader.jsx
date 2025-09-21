@@ -6,6 +6,8 @@ import { API_URL } from '../config';
 import './ImgUploader.css';
 
 const ImgUploader=() => {
+    const token = localStorage.getItem('token');
+    
     const [isDragging, setIsDragging] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -61,7 +63,13 @@ const ImgUploader=() => {
         const formData=new FormData()
         formData.append('ImgFile', file)
         try {
-            const response = await axios.post(`${API_URL}/processIMG`, formData);
+            const response = await axios.post(`${API_URL}/processIMG`, formData, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                },
+            );
             // Axios throws for non-2xx, so only check for data here
             console.log(response.data);
             setText(response.data.paramText);
