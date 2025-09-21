@@ -11,7 +11,7 @@ import { auth, JWT_SECRET } from './middleware/auth.js';
 import fs from 'fs';
 //import PDFExtract from 'pdf.js-extract';
 import { createWorker } from 'tesseract.js';
-import scribe from 'scribe.js-ocr';
+//import scribe from 'scribe.js-ocr';
 import multer from 'multer';
 //import imgConverter from 'pdftoimg-js';
 //import { fromBuffer } from 'pdf2pic';
@@ -268,7 +268,7 @@ app.post('/api/processIMG', upload.single('ImgFile'), async (req, res) => {
         let extractedText = '';
         if (file.mimetype.startsWith('application/')) {
             // Convert PDF to images using pdf2pic
-            extractedText = await scribe.extractText([file.buffer]);
+            //extractedText = await scribe.extractText([file.buffer]);
         } else if (file.mimetype.startsWith('image/')) {
             extractedText = await extractTextFromImg(file.buffer);
         }
@@ -307,7 +307,7 @@ async function parseTransactionsFromText(text) {
 
 async function categorizeTransactions(transactions) {
     // Implement AI categorization using OpenAI API
-    return transactions;
+    return [];
 }
 
 const PORT = process.env.PORT || 2025;

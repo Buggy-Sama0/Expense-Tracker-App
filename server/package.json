@@ -29,14 +29,6 @@
     "multer": "^2.0.2",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "pdf-lib": "^1.17.1",
-    "pdf-parse": "^1.1.1",
-    "pdf-to-img": "^5.0.0",
-    "pdf.js-extract": "^0.2.1",
-    "pdf2pic": "^3.2.0",
-    "pdfjs-dist": "^5.4.149",
-    "pdftoimg-js": "^0.2.5",
-    "scribe.js-ocr": "^0.9.0",
     "tesseract.js": "^6.0.1"
   },
   "devDependencies": {
