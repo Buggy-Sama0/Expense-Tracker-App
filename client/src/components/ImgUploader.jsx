@@ -63,12 +63,7 @@ const ImgUploader=() => {
         const formData=new FormData()
         formData.append('ImgFile', file)
         try {
-            const response = await axios.post(`${API_URL}/processIMG`, formData, 
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                },
+            const response = await axios.post(`${API_URL}/processIMG`, formData
             );
             // Axios throws for non-2xx, so only check for data here
             console.log(response.data);
