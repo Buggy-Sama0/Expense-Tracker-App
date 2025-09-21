@@ -1,8 +1,9 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
 
-const connectDB = async () => {
-    try {        
+export const connectDB = async () => {
+    try {
         const conn = await mongoose.connect(process.env.MONGODB_URI);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
@@ -23,10 +24,8 @@ const expenseSchema = new mongoose.Schema({
     }
 });
 
-// Create expense model
-const Expense = mongoose.model('Expense', expenseSchema);
+export const Expense = mongoose.model('Expense', expenseSchema);
 
-// Create user schema
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -61,7 +60,4 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Create user model
-const User = mongoose.model('User', userSchema);
-
-module.exports = { connectDB, Expense, User };
+export const User = mongoose.model('User', userSchema);

@@ -1,29 +1,40 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const cookieParser=require('cookie-parser')
-const { connectDB, Expense, User } = require('./model/db');
-const { auth, JWT_SECRET } = require('./middleware/auth');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import { connectDB, Expense, User } from './model/db.js';
+import { auth, JWT_SECRET } from './middleware/auth.js';
+import fs from 'fs';
+//import PDFExtract from 'pdf.js-extract';
+import { createWorker } from 'tesseract.js';
+import scribe from 'scribe.js-ocr';
+import multer from 'multer';
+//import imgConverter from 'pdftoimg-js';
+//import { fromBuffer } from 'pdf2pic';
+import path from 'path';
 
 // Connect to MongoDB
 connectDB();
 
+const app = express();
 const corsOptions = {
     origin: ['http://localhost:5173',
         'https://expense-tracker-app-4fiq.vercel.app'
     ],
-    credentials: true,
-    optionsSuccessStatus: 200
+    credentials: true
 };
-
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
+// Set up multer for file uploads
+const upload = multer();
+
 
 app.get('/', (req, res) => {
     res.send({
@@ -33,7 +44,6 @@ app.get('/', (req, res) => {
 
     res.redirect("/login");
 });
-
 
 // Authentication Routes
 app.post('/api/register', async (req, res) => {
@@ -92,17 +102,15 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-
 app.get('/api/login', async (req, res) => {
-
     try {
         res.status(201).json({
-            message: 'Login Page', ff:'ss'
-    })
-    } catch(err) {
+            message: 'Login Page', ff: 'ss'
+        });
+    } catch (err) {
         res.status(500).json({ error: 'Error loading login PAGE' });
     }
-})
+});
 
 app.post('/api/login', async (req, res) => {
     try {
@@ -140,22 +148,18 @@ app.post('/api/login', async (req, res) => {
         } 
 
         return res.status(401).json({message:'Invalid Credentials'})
-        
         //res.redirect('/api/showExpense')
-      
     } catch (err) {
         console.error('Login error:', err);
         res.status(500).json({ error: 'Error during login' });
     }
 });
 
-
-
 // Protected route to get user profile
 app.get('/api/user', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id)
-        .select('username')
+            .select('username');
 
         res.json(user);
     } catch (err) {
@@ -168,7 +172,6 @@ app.get('/api/user', auth, async (req, res) => {
 });
 
 // Dashboard route
-/*
 app.get('/dashboard', async (req, res) => {
     try {
         const expenses = await Expense.find()
@@ -183,23 +186,24 @@ app.get('/dashboard', async (req, res) => {
         console.error("Dashboard error:", err);
         res.status(500).json({ error: 'Error loading dashboard data' });
     }
-});*/
+});
+
+
 
 // Get list of expenses
 app.get("/api/showExpense", auth, async (req, res) => {
     try {
-        const currentUser=await User.findById(req.user.id)
-        const currentUserId = currentUser._id;
-        const expenses = await Expense.find({userId:currentUserId})
+    const currentUser = await User.findById(req.user.id);
+    const currentUserId = currentUser._id;
+    const expenses = await Expense.find({ userId: currentUserId })
             .select('description amount category date')
             .sort({ date: -1 });
         res.status(200).json(expenses);
 
-
     } catch (err) {
         console.error("Error retrieving expenses:", err);
         
-        res.status(500).json({ err: 'Retrieval Data Failed'});
+        res.status(500).json({ err: 'Retrieval Data Failed' });
     }
 });
 
@@ -207,28 +211,26 @@ app.get("/api/showExpense", auth, async (req, res) => {
 app.post("/api/addExpense", auth, async (req, res) => {
     try {
         const { description, amount, category, date } = req.body;
+    const currentUser = await User.findById(req.user.id);
+    //console.log(typeof currentUser);
 
-        const currentUser=await User.findById(req.user.id)
-        //console.log(typeof currentUser);
-
-        if (!currentUser) {
-            throw new Errr()
+    if (!currentUser) {
+            throw new Errr();
         }
 
-        const iidd=currentUser._id
-        
+        const iidd = currentUser._id;
         const newExpense = new Expense({
             userId: currentUser._id,
             description,
-            amount, 
+            amount,
             category,
             date: new Date(date),
-        });
-        const savedExpense = await newExpense.save();
-        res.status(201).json({ 
+    });
+    const savedExpense = await newExpense.save();
+    res.status(201).json({
             message: 'Expense recorded',
             result: savedExpense,
-            postData: { description, amount, category, date, iidd}
+            postData: { description, amount, category, date, iidd }
         });
     } catch (err) {
         console.error("Error saving expense:", err);
@@ -239,23 +241,76 @@ app.post("/api/addExpense", auth, async (req, res) => {
 // Delete Expense
 app.delete('/api/deleteExpense/:description', auth, async (req, res) => {
     try {
-        const currentUser=await User.findById(req.user.id)
-        const currentUserId = currentUser._id;
-        const result = await Expense.deleteOne({ description: req.params.description, userId:currentUserId });
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ 
-                message: 'No expense found with that description' 
+        const currentUser = await User.findById(req.user.id);
+    const currentUserId = currentUser._id;
+    const result = await Expense.deleteOne({ description: req.params.description, userId: currentUserId });
+    if (result.deletedCount === 0) {
+            return res.status(404).json({
+                message: 'No expense found with that description'
             });
         }
-        res.status(200).json({ message: 'Expense Deleted', result, url:req.url});
+        res.status(200).json({ message: 'Expense Deleted', result, url: req.url });
     } catch (err) {
         console.error("Error deleting expense:", err);
         res.status(500).json({ message: "Error deleting expense" });
     }
 });
 
-const PORT = process.env.PORT || 2025;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Process pdf files
+app.post('/api/processIMG', upload.single('ImgFile'), async (req, res) => {
+    try {
+        const file = req.file;
+        //const dataBuffer=fs.readFileSync(file);
+        if (!file) {
+            console.log('no file');
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+        let extractedText = '';
+        if (file.mimetype.startsWith('application/')) {
+            // Convert PDF to images using pdf2pic
+            extractedText = await scribe.extractText([file.buffer]);
+        } else if (file.mimetype.startsWith('image/')) {
+            extractedText = await extractTextFromImg(file.buffer);
+        }
+        res.status(200).json({ uploaded_file: file, paramText: extractedText });
+
+    } catch (error) {
+        console.error('Error file process: ', error);
+        res.status(500).json({ message: 'Error processing the file' });
+    }
 });
 
+// PLACEHOLDER FUNCTIONS - ADD YOUR LOGIC HERE
+
+async function extractTextFromImg(file) {
+    //const dataBuffer=fs.readFileSync(file);
+    /*
+    const options = {};
+    pdfExtract.extractBuffer(file, options, (err, data) => {
+        if (err) return console.log(err);
+        console.log(data);
+    })*/
+    const worker = await createWorker('eng');
+    const ret = await worker.recognize(file);
+    console.log(ret);
+    await worker.terminate();
+
+    return ret.data.text;
+}
+
+async function parseTransactionsFromText(text) {
+    // Implement your transaction parsing logic:
+    // - Regex patterns for your specific bank format
+    // - AI parsing with OpenAI API
+    return [];
+}
+
+async function categorizeTransactions(transactions) {
+    // Implement AI categorization using OpenAI API
+    return transactions;
+}
+
+const PORT = process.env.PORT || 2025;
+app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+});

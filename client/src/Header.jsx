@@ -9,8 +9,6 @@ const Header = () => {
     const token=localStorage.getItem('token')
     const [userName, setUserName]=useState('')
 
-
-
     useEffect(()=> {
 
         const fetchUser= async () => {
@@ -24,7 +22,7 @@ const Header = () => {
                     }
                 )
                 setUserName(response.data.username)
-                console.log(response.data); 
+                //console.log(response.data); 
             
             } catch(error) {
                 console.log(error.response.data);
@@ -54,6 +52,14 @@ const Header = () => {
                         <span className="nav-icon" role="img" aria-label="add-expense">➕</span>
                         Add Expense
                     </NavLink>
+                    <NavLink 
+                        to="/add-expense-byImg" 
+                        className={({ isActive }) => isActive ? 'active' : ''}
+                    >
+                        <span className="nav-icon" role="img" aria-label="dashboard">🗃️</span>
+                        Add Expense By Image
+                    </NavLink>
+                    
                     <NavLink 
                         to="/reports"
                         className={({ isActive }) => isActive ? 'active' : ''}

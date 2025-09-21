@@ -5,7 +5,8 @@ import AddExpense from './components/AddExpense';
 import Reports from './components/Reports';
 import Settings from './components/Settings';
 import Login from './components/Login';
-import Register from './components/Register'
+import Register from './components/Register';
+import ImgUploader from './components/ImgUploader';
 //import axios from 'axios';
 import { API_URL } from './config';
 import './App.css';
@@ -71,6 +72,14 @@ const App = () => {
                                 <>
                                     <Header />
                                     <AddExpense />
+                                </>
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/add-expense-byImg" element={
+                            <ProtectedRoute>
+                                <>
+                                    <Header />
+                                    <ImgUploader />
                                 </>
                             </ProtectedRoute>
                         } />
