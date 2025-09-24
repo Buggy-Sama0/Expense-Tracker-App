@@ -35,15 +35,10 @@ const AddExpense = () => {
             console.log(response.data);
 
             setMessage(response.data.message);
-
-
-
             setDescription('');
             setAmount('');
             setCategory('');
             setDate('');
-
-            
         } catch(error) {
              console.log("Error: ", error);
         }
