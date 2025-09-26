@@ -7,6 +7,8 @@ import Settings from './components/Settings';
 import Login from './components/Login';
 import Register from './components/Register';
 import ImgUploader from './components/ImgUploader';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 //import axios from 'axios';
 import { API_URL } from './config';
 import './App.css';
@@ -55,6 +57,16 @@ const App = () => {
                         <Route path="/register" element={
                             <PublicRoute>
                                 <Register />
+                            </PublicRoute>
+                        } />
+                        <Route path="/forgot-password" element={
+                            <PublicRoute>
+                                <ForgotPassword />
+                            </PublicRoute>
+                        } />
+                        <Route path="/reset-password" element={
+                            <PublicRoute>
+                                <ResetPassword />
                             </PublicRoute>
                         } />
 

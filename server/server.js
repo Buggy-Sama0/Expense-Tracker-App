@@ -16,6 +16,7 @@ import multer from 'multer';
 //import { fromBuffer } from 'pdf2pic';
 import path from 'path';
 import {createCompletion} from './services/deepseekService.js';
+import {sendEmail} from './services/sendEmail.js'
 
 dotenv.config();
 
@@ -157,6 +158,40 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ error: 'Error during login' });
     }
 });
+
+app.post('/api/forgot-password', async (req, res) => {
+    try {
+        const {email}=req.body;
+        const user=await User.findOne({email});
+        if(!user) {
+            return res.status(400).json({ message: 'Invalid email' });
+        }
+        const link=`${process.env.ALLOWED_ORIGINS}/reset-password`
+        await sendEmail(email, 'Password Reset', link)
+        res.send("password reset link sent to your email account");
+    } catch(error) {
+        res.send("An error occured");
+        console.log(error);
+    }
+})
+
+// Reset Password
+app.post('/api/reset-password/:email', async (req, res) => {
+    try {
+        const {email}=req.params;
+        const user=await User.findOne({email});
+        if(!user) {
+            return res.status(400).json({ message: 'Invalid email' });
+        }
+        const hashedPassword=await bcrypt.hash(req.body.password, 10)
+        user.password=hashedPassword
+        await user.save();
+        res.status(200).json({message: 'Password reset successfully'})
+    } catch(error) {
+        res.send("An error occured");
+        console.log(error);
+    }
+})
 
 // Protected route to get user profile
 app.get('/api/user', auth, async (req, res) => {
