@@ -4,6 +4,7 @@ import { API_URL } from '../config';
 
 const ForgotPassword= () => {
     const [email, setEmail]=useState('');
+    const [message, setMessage]=useState('')
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -12,8 +13,12 @@ const ForgotPassword= () => {
                 email: email
             })
             console.log(response.data);
+            setMessage(response.data)
         }catch(error) {
             console.log(error.message);
+            setMessage('This email is not registered')
+        } finally {
+            setTimeout(()=> setMessage(''), 4000)
         }
     }
 
@@ -31,6 +36,7 @@ const ForgotPassword= () => {
                 required/>
             <button type="submit">Submit</button>
         </form>
+        <h3>{message}</h3>
         </>
     )
 

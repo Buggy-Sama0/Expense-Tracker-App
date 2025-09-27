@@ -12,6 +12,7 @@ const ImgUploader=() => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [text, setText]=useState('');
+    const [message, setMessage]=useState('');
 
     const jjj=[
         {
@@ -132,30 +133,43 @@ const ImgUploader=() => {
         // Remove code block markers if present
         const cleaned = jsonObj.replace(/```json|```/g, '').trim();
         let parsed;
+        let addExpenseAutomation;
         try {
             parsed = JSON.parse(cleaned);
         } catch (err) {
             console.error('Failed to parse AI response:', err);
+            addExpenseAutomation=false
             return;
         }
-        for (let i in parsed) {
-            //console.log(parsed[i].date);
-            const response = await axios.post(
-                `${API_URL}/addExpense`,
-                {   
-                    description: parsed[i].description, 
-                    amount: parsed[i].total_price.replace(/[^\d.]/g, ''), 
-                    category: parsed[i].category , 
-                    date: parsed[i].date 
-                },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+        try {
+            for (let i in parsed) {
+                //console.log(parsed[i].date);
+                if (parsed[i].total_price=='' || parsed[i].date=='' ) {
+                    setError('Missing fields')
+                    break;
                 }
-            );
-            console.log(response.data.message);   
-        }
+                const response = await axios.post(
+                    `${API_URL}/addExpense`,
+                    {   
+                        description: parsed[i].description, 
+                        amount: parsed[i].total_price.replace(/[^\d.]/g, ''), 
+                        category: parsed[i].category, 
+                        date: parsed[i].date 
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+                console.log(response.data.message);
+                
+            }
+            addExpenseAutomation=true 
+            if (addExpenseAutomation) setMessage('Expense Recorded👌')
+        } catch(error) {
+            setError(error.response.message)
+        }  
     }
 
     return (
@@ -222,6 +236,7 @@ const ImgUploader=() => {
                 // Only use a plain <pre> with no background class when not JSON
                 return <pre>{text}</pre>;
             })()}
+            <h2>{message}</h2>
         </div>    
     )
 }

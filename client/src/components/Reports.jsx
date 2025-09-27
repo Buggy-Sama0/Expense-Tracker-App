@@ -13,8 +13,6 @@ import './Reports.css'
 const Reports = () => {
 
     const token = localStorage.getItem('token');
-    
-
     const [allExpenses, setAllExpenses]=useState([]);
     const [expenses, setExpenses]=useState([]);
     const [startDate, setStartDate]= useState(new Date());
@@ -77,9 +75,7 @@ const Reports = () => {
             return expenseDate >= startDate && expenseDate <= endDate;
         });
 
-        console.log(filtered);
-        
-
+        //console.log(filtered);
         if (category==='') {
             setExpenses(sortArray(filtered));
             return;       
@@ -108,7 +104,6 @@ const Reports = () => {
         }
 
         //console.log(x); 
-
         return x;
     }
 
@@ -128,7 +123,7 @@ const Reports = () => {
                 dateMap[date] = 0;
             }
             dateMap[date] += exp.amount;
-            console.log(dateMap[date]);   
+            //console.log(dateMap[date]);   
         });
 
         const label = Object.keys(dateMap);
@@ -202,7 +197,6 @@ const Reports = () => {
                 },
             );
             //console.log(response.data);
-            
             setAllExpenses(response.data);
         }
 

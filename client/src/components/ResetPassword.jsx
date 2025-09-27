@@ -5,8 +5,10 @@ import { API_URL } from '../config';
 
 const ResetPassword= () => {
 
-    const [password, setPassword]=useState('')
+    const [password, setPassword]=useState('');
     const [email, setEmail]=useState('');
+    const [message, setMessage]=useState('');
+
     async function handleReset(e) {
         e.preventDefault();
         try {
@@ -14,14 +16,19 @@ const ResetPassword= () => {
                password: password
             })
             console.log(response.data.message);
+            setMessage('response.data.message')
         }catch(error) {
             console.log(error.message);
+            setMessage(error.message);
+        } finally {
+            setTimeout(()=> setMessage(''), 4000)
         }
     }
 
     return (
         <>
         <h1>Reset your password</h1>
+        <h2>{message}</h2>
         <form onSubmit={handleReset}>
             <label htmlFor="email">Email</label>
             <input 

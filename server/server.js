@@ -170,7 +170,6 @@ app.post('/api/forgot-password', async (req, res) => {
         await sendEmail(email, 'Password Reset', link)
         res.send("password reset link sent to your email account");
     } catch(error) {
-        res.send("An error occured");
         console.log(error);
     }
 })
