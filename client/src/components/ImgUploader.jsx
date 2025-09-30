@@ -221,7 +221,26 @@ const ImgUploader=() => {
                 } catch {
                     parsed = null;
                 }
-                if (parsed && typeof parsed === 'object') {
+                if (parsed && Array.isArray(parsed)) {
+                    // Handle array of objects
+                    return (
+                        <div className="ai-output">
+                            <h3>AI Extracted Details</h3>
+                            <ul>
+                                {parsed.map((item, idx) => (
+                                    <li key={idx}>
+                                        {Object.entries(item).map(([key, value]) => (
+                                            <div key={key}>
+                                                <strong>{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> {value}
+                                            </div>
+                                        ))}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    );
+                } else if (parsed && typeof parsed === 'object') {
+                    // Handle single object
                     return (
                         <div className="ai-output">
                             <h3>AI Extracted Details</h3>

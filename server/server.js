@@ -329,7 +329,7 @@ async function extractTextFromImg(file) {
     })*/
     const worker = await createWorker('eng');
     const ret = await worker.recognize(file);
-    console.log(ret);
+    console.log('OCR Text: ',ret.data.text);
     await worker.terminate();
     return ret.data.text;
 }
@@ -340,22 +340,46 @@ async function parseTransactionsFromText(texts) {
     // - Regex patterns for your specific bank format
     // - AI parsing with OpenAI API
     try {
-        const prompt=`Extract all expenses from the receipt/text. For each expense item found, extract these 4 fields::
-            1. Description of goods/services
-            2. Total price/amount (Note: always retuen with prefix HK$, example(HK$ 294.00))
-            3. Date of transaction
-            4. Category (choose strictly from: Food, Bill, Utility, Travel)
 
-            The fields name should be [description, total_price, date, category] all in small letter and none other that.
+        // Clean the text first
+        const cleanedText = texts
+            .replace(/[^\w\s.,/$:-]/g, ' ') // Remove special characters
+            .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+            .trim();
 
-            Ignore all other information. 
-            Return as a JSON array of objects. If no expenses are found, return an empty array. 
-            If any category field is missing or unclear for a specific item, don't return "unknown", assign the suitable list of category based on the description.`
+        console.log('Cleaned text for AI:', cleanedText);
+
+        const prompt=`You are an expert at extracting expense information from receipts and invoices.
+                    Extract ALL expense items from this receipt text: "${cleanedText}"
+                    RULES:
+                    1. Look for item descriptions, prices, dates, and merchant/store names
+                    2. For each item found, extract exactly these 4 fields:
+                    - description: Name/description of the item or service
+                    - total_price: The price with HK$ prefix (example: "HK$ 294.00")
+                    - date: Transaction date in YYYY-MM-DD format
+                    - category: Choose from [Food, Bill, Utility, Travel] based on the description
+
+                    3. If the receipt shows multiple items, return each as a separate object
+                    4. If date is missing, try to infer from the receipt header/footer
+                    5. If price format is unclear, convert to HK$ format
+                    6. For category, use context clues from the description and merchant name
+
+                    Return ONLY a valid JSON array. Example:
+                    [
+                    {
+                        "description": "Chicken Rice",
+                        "total_price": "HK$ 45.00",
+                        "date": "2024-01-15",
+                        "category": "Food"
+                    }
+                    ]
+
+                    If no valid expenses found, return: []`;
 
         if (!prompt) {
             return res.status(400).json({message:'Text is empty'})
         }
-        const response=await createCompletion(texts+'. '+prompt);
+        const response=await createCompletion(prompt);
         return response;
         //return texts+'. '+prompt;
     } catch(error) {
