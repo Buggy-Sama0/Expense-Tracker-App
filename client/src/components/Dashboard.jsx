@@ -214,7 +214,8 @@ const Dashboard = () => {
                     </div>
                     <div className="dashboard-card-label">Budget Left</div>
                     <div className="dashboard-card-value budget-value">
-                        <span className="dashboard-currency">$</span>{localStorage.getItem('budget')-amount}
+                        <span className="dashboard-currency">$</span>
+                        {Math.floor((localStorage.getItem('budget')-amount)*100)/100}
                     </div>
                 </div>
                 <div className="dashboard-card expense-card">

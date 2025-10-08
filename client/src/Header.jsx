@@ -56,10 +56,9 @@ const Header = () => {
                         to="/add-expense-byImg" 
                         className={({ isActive }) => isActive ? 'active' : ''}
                     >
-                        <span className="nav-icon" role="img" aria-label="dashboard">🗃️</span>
+                        <span className="nav-icon" role="img" aria-label="ai-image-scanner">🤖📸</span>
                         Add Expense By Image
                     </NavLink>
-                    
                     <NavLink 
                         to="/reports"
                         className={({ isActive }) => isActive ? 'active' : ''}

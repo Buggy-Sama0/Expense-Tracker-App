@@ -52,23 +52,107 @@ const AddExpense = () => {
     }
     
     return (
-        <section id="add-expense">
-            <h2>Add Expense</h2>
-            {message && <p>{<p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}</p>}
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-                <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-                <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-                    <option value="">Select Category</option>
-                    <option value="Food">Food</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Bill">Bill</option>
-                    <option value="Utility">Utility</option>
+        <section className="add-expense-container">
+            <div className="add-expense-header">
+                <h2 className="add-expense-title">
+                    <span className="title-icon">💰</span>
+                    Add New Expense
+                    <span className="title-decoration">✨</span>
+                </h2>
+                <p className="add-expense-subtitle">Track your spending with ease</p>
+            </div>
+            
+            {message && (
+                <div className={`message-container ${message.includes('Error') ? 'error' : 'success'}`}>
+                    <span className="message-icon">
+                        {message.includes('Error') ? '❌' : '✅'}
+                    </span>
+                    <p className="message-text">{message}</p>
+                </div>
+            )}
+            
+            <form className="add-expense-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="description" className="form-label">
+                        <span className="label-icon">📝</span>
+                        Description
+                    </label>
+                    <input 
+                        id="description"
+                        type="text" 
+                        placeholder="What did you spend on?" 
+                        value={description} 
+                        onChange={(e) => setDescription(e.target.value)} 
+                        required 
+                        className="form-input"
+                    />
+                </div>
 
-                </select>
-                <input placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-                <button type="submit">Add</button>
-                <button type="reset" onClick={ ()=> resetSubmit() }>Cancel</button>
+                <div className="form-group">
+                    <label htmlFor="amount" className="form-label">
+                        <span className="label-icon">💵</span>
+                        Amount
+                    </label>
+                    <div className="amount-input-wrapper">
+                        <span className="currency-symbol">$</span>
+                        <input 
+                            id="amount"
+                            type="number" 
+                            step="0.01"
+                            placeholder="0.00" 
+                            value={amount} 
+                            onChange={(e) => setAmount(e.target.value)} 
+                            required 
+                            className="form-input amount-input"
+                        />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="category" className="form-label">
+                        <span className="label-icon">🏷️</span>
+                        Category
+                    </label>
+                    <select 
+                        id="category"
+                        value={category} 
+                        onChange={(e) => setCategory(e.target.value)} 
+                        required
+                        className="form-select"
+                    >
+                        <option value="">Select a category...</option>
+                        <option value="Food">🍕 Food</option>
+                        <option value="Travel">✈️ Travel</option>
+                        <option value="Bill">📄 Bill</option>
+                        <option value="Utility">⚡ Utility</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="date" className="form-label">
+                        <span className="label-icon">📅</span>
+                        Date
+                    </label>
+                    <input 
+                        id="date"
+                        type="date" 
+                        value={date} 
+                        onChange={(e) => setDate(e.target.value)} 
+                        required 
+                        className="form-input"
+                    />
+                </div>
+
+                <div className="button-group">
+                    <button type="submit" className="btn-primary">
+                        <span className="btn-icon">➕</span>
+                        Add Expense
+                    </button>
+                    <button type="reset" onClick={() => resetSubmit()} className="btn-secondary">
+                        <span className="btn-icon">🔄</span>
+                        Reset
+                    </button>
+                </div>
             </form>
         </section>
     );

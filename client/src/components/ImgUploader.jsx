@@ -173,16 +173,23 @@ const ImgUploader=() => {
     }
 
     return (
-        <div className="pdf-uploader-container">
+        <div className="receipt-scanner-container">
+            <div className="scanner-header">
+                <h2 className="scanner-title">
+                    📸 Smart Receipt Scanner
+                </h2>
+                <p className="scanner-subtitle">Upload your receipts and let AI extract expense details automatically</p>
+            </div>
+
             <div
-                className={`pdf-uploader-dropzone${isDragging ? ' dragging' : ''}`}
+                className={`scanner-dropzone ${isDragging ? 'dragging' : ''} ${isLoading ? 'processing' : ''}`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                onClick={() => document.getElementById('pdf-input').click()}
+                onClick={() => !isLoading && document.getElementById('receipt-input').click()}
             >
                 <input
-                    id="pdf-input"
+                    id="receipt-input"
                     type="file"
                     accept="application/pdf, image/*"
                     onChange={handleFileChange}
@@ -190,27 +197,48 @@ const ImgUploader=() => {
                     disabled={isLoading}
                 />
                 {isLoading ? (
-                    <div className="pdf-uploader-loading">
-                        <p>Processing Image... This may take a moment.</p>
-                        {/* Add a spinner or loading animation here */}
+                    <div className="scanner-loading">
+                        <div className="loading-spinner"></div>
+                        <div className="ai-processing-icon">🤖</div>
+                        <h3>🧠 AI Processing Receipt...</h3>
+                        <p>Artificial Intelligence is extracting expense details from your image</p>
                     </div>
                 ) : (
-                    <div className="pdf-uploader-message">
-                        <p className="pdf-uploader-message-title">
-                            {isDragging ? 'Drop Image here' : 'Upload Reciepts Imgs'}
+                    <div className="scanner-content">
+                        <div className="upload-icon">
+                            {isDragging ? '📥' : '📄'}
+                        </div>
+                        <h3 className="upload-title">
+                            {isDragging ? 'Drop your receipt here!' : 'Upload Receipt'}
+                        </h3>
+                        <p className="upload-description">
+                            Drag and drop your receipt image here, or click to browse
+                            <br />
+                            <span className="ai-feature">🤖 AI will automatically extract expense details</span>
                         </p>
-                        <p className="pdf-uploader-message-desc">
-                            Drag and drop your IMG file here, or click to browse
-                        </p>
-                        <p className="pdf-uploader-message-note">
-                            Supports statements from most major banks
-                        </p>
+                        <div className="supported-formats">
+                            <span className="format-badge">📱 JPG</span>
+                            <span className="format-badge">🖼️ PNG</span>
+                            {/* <span className="format-badge">📄 PDF</span> */}
+                        </div>
+                        <button className="browse-button" type="button">
+                            Choose File
+                        </button>
                     </div>
                 )}
             </div>
+            
             {error && (
-                <div className="pdf-uploader-error">
-                    <p className="pdf-uploader-error-text">{error}</p>
+                <div className="scanner-error">
+                    <span className="error-icon">❌</span>
+                    <p className="error-text">{error}</p>
+                </div>
+            )}
+
+            {message && (
+                <div className="scanner-success">
+                    <span className="success-icon">✅</span>
+                    <p className="success-text">{message}</p>
                 </div>
             )}
 
