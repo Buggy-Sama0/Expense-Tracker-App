@@ -18,13 +18,14 @@
 .scanner-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #1e293b;
+  color: #2e7bd4;
   margin-bottom: 0.5rem;
   background-clip: text;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+  
 }
 
 .ai-badge {
@@ -49,6 +50,7 @@
   color: #64748b;
   font-size: 1.1rem;
   margin: 0;
+  
 }
 
 .scanner-dropzone {

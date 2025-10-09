@@ -206,48 +206,129 @@ const Reports = () => {
 
 
     return (
-        <section id="reports">
-            <h2>Spending Reports</h2>
-            
-            {/* Implement charts or graphs here */}
-            <DateRangePicker
-                startDatePlaceholder="Start Date"
-                endDatePlaceholder="End Date"
-                onChange={handleSelect}
-                months={1}
-                inputRange={[]}
-                ranges={[selectionRange]}
-            />
+        <section className="reports-container">
+            <div className="reports-header">
+                <h2 className="reports-title">
+                    <span className="title-icon">📊</span>
+                    Spending Reports
+                    <span className="title-decoration">✨</span>
+                </h2>
+                <p className="reports-subtitle">Analyze your financial patterns and track expenses</p>
+            </div>
 
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">Select Category</option>
-                    <option value="Food">Food</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Bill">Bill</option>
-                    <option value="Utility">Utility</option>
+            <div className="filters-section">
+                <div className="filter-card">
+                    <h3 className="filter-title">
+                        <span className="filter-icon">📅</span>
+                        Date Range
+                    </h3>
+                    <div className="date-picker-wrapper">
+                        <DateRangePicker
+                            startDatePlaceholder="Start Date"
+                            endDatePlaceholder="End Date"
+                            onChange={handleSelect}
+                            months={1}
+                            inputRange={[]}
+                            ranges={[selectionRange]}
+                        />
+                    </div>
+                </div>
 
-            </select>
+                <div className="category-filter-card">
+                    <h3 className="filter-title">
+                        <span className="filter-icon">🏷️</span>
+                        Category Filter
+                    </h3>
+                    <select 
+                        className="category-select" 
+                        value={category} 
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
+                        <option value="">All Categories</option>
+                        <option value="Food">🍕 Food</option>
+                        <option value="Travel">✈️ Travel</option>
+                        <option value="Bill">📄 Bill</option>
+                        <option value="Utility">⚡ Utility</option>
+                    </select>
+                </div>
+            </div>
 
-            <table>
-                <thead>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </thead>
-                {
-                expenses.map(expense => (
-                    <tr>
-                        <td>{expense.description}</td>
-                        <td>{expense.amount}</td>
-                        <td>{expense.date.slice(0,10)}</td>
-                    </tr>
-                ))
-                }       
-            </table> <br/><br/><br/>
+            <div className="data-section">
+                <div className="expenses-table-card">
+                    <div className="table-header">
+                        <h3 className="table-title">
+                            <span className="table-icon">📋</span>
+                            Expense Details
+                        </h3>
+                        <div className="expense-count">
+                            <span className="count-badge">{expenses.length}</span>
+                            <span className="count-label">expenses found</span>
+                        </div>
+                    </div>
+                    
+                    <div className="table-wrapper">
+                        <table className="expenses-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span className="th-icon">📝</span>
+                                        Description
+                                    </th>
+                                    <th>
+                                        <span className="th-icon">💰</span>
+                                        Amount
+                                    </th>
+                                    <th>
+                                        <span className="th-icon">📅</span>
+                                        Date
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {expenses.length > 0 ? (
+                                    expenses.map((expense, index) => (
+                                        <tr key={index} className="expense-row">
+                                            <td className="description-cell">{expense.description}</td>
+                                            <td className="amount-cell">
+                                                <span className="currency">$</span>
+                                                {expense.amount}
+                                            </td>
+                                            <td className="date-cell">{expense.date.slice(0,10)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="3" className="no-data-cell">
+                                            <div className="no-data-message">
+                                                <span className="no-data-icon">📭</span>
+                                                <p>No expenses found for the selected criteria</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-            <h2>Graphs</h2>
-
-            <Line data={data} options={options} />
+                <div className="chart-section">
+                    <div className="chart-card">
+                        <div className="chart-header">
+                            <h3 className="chart-title">
+                                <span className="chart-icon">📈</span>
+                                Spending Trends
+                            </h3>
+                            <div className="chart-info">
+                                <span className="chart-badge">Line Chart</span>
+                            </div>
+                        </div>
+                        
+                        <div className="chart-wrapper">
+                            <Line data={data} options={options} />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 };

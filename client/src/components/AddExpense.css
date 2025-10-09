@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0d61ce 0%, #5ea7fb 100%);
   border-radius: 20px 20px 0 0;
 }
 
@@ -47,7 +47,7 @@
 .add-expense-title {
   font-size: 2.2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0d61ce 0%, #5ea7fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

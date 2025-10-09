@@ -225,7 +225,7 @@ const Dashboard = () => {
                     </div>
                     <div className="dashboard-card-label">Total Expenses</div>
                     <div className="dashboard-card-value expense-value">
-                        <span className="dashboard-currency">$</span>{amount}
+                        <span className="dashboard-currency">$</span>{Math.floor(amount*100)/100}
                     </div>
                 </div>
             </div>
