@@ -219,6 +219,8 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    position: relative;
 }
 
 .category-select {
@@ -514,6 +516,51 @@
     justify-content: center;
 }
 
+/* Enhanced Mobile-Friendly Date Picker Styles */
+.date-picker-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+/* Date Range Picker Mobile Optimizations */
+.rdrCalendarWrapper {
+    font-size: 14px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.rdrMonth {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.rdrWeekDays, .rdrDays {
+    width: 100% !important;
+}
+
+.rdrDay {
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 12px !important;
+}
+
+.rdrDateRangePickerWrapper {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.rdrDefinedRangesWrapper {
+    border-right: none !important;
+    border-bottom: 1px solid #eff2f7 !important;
+    width: 100% !important;
+}
+
+.rdrDateRangeWrapper {
+    width: 100% !important;
+}
+
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
     .filters-section {
@@ -524,6 +571,16 @@
     .reports-title {
         font-size: 2.2rem;
     }
+    
+    /* Better date picker layout for tablets */
+    .date-picker-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .rdrCalendarWrapper {
+        min-width: 280px !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -531,12 +588,66 @@
         margin: 1rem;
         padding: 1.5rem;
         border-radius: 20px;
+        overflow-x: hidden;
     }
     
     .reports-title {
         font-size: 2rem;
         flex-direction: column;
         gap: 0.5rem;
+    }
+    
+    .filters-section {
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .filter-card,
+    .category-filter-card {
+        padding: 1.2rem;
+        overflow: hidden;
+    }
+    
+    .filter-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Mobile-optimized date picker */
+    .date-picker-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        margin: 0 -0.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .rdrCalendarWrapper {
+        min-width: 320px !important;
+        font-size: 13px !important;
+    }
+    
+    .rdrDateRangePickerWrapper {
+        flex-direction: column !important;
+    }
+    
+    .rdrDefinedRangesWrapper {
+        width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        padding: 8px !important;
+    }
+    
+    .rdrStaticRange {
+        font-size: 13px !important;
+        padding: 6px 12px !important;
+    }
+    
+    .category-select {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+        padding-right: 2.5rem;
     }
     
     .expenses-table-card,
@@ -563,14 +674,82 @@
         margin: 0.5rem;
         padding: 1rem;
         border-radius: 16px;
+        overflow-x: hidden;
     }
     
     .reports-title {
         font-size: 1.8rem;
     }
     
+    .filters-section {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
     .filter-card,
-    .category-filter-card,
+    .category-filter-card {
+        padding: 1rem;
+        border-radius: 16px;
+        margin: 0 -0.5rem;
+        overflow: visible;
+    }
+    
+    .filter-title {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* Ultra-mobile date picker optimization */
+    .date-picker-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        margin: 0 -1rem;
+        padding: 0 1rem;
+        box-shadow: none;
+    }
+    
+    .rdrCalendarWrapper {
+        min-width: 300px !important;
+        font-size: 12px !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+    }
+    
+    .rdrMonth {
+        padding: 8px !important;
+    }
+    
+    .rdrWeekDay, .rdrDay {
+        height: 32px !important;
+        line-height: 32px !important;
+        font-size: 11px !important;
+    }
+    
+    .rdrDefinedRangesWrapper {
+        padding: 6px !important;
+        font-size: 12px !important;
+    }
+    
+    .rdrStaticRange {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+        margin: 1px 0 !important;
+    }
+    
+    .rdrInputRange {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+    }
+    
+    .category-select {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        padding-right: 2.2rem;
+        background-size: 1rem;
+    }
+    
     .expenses-table-card,
     .chart-card {
         padding: 1rem;
@@ -591,6 +770,27 @@
     .table-wrapper {
         margin: 0 -1rem;
         padding: 0 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Additional scrollbar styling for mobile */
+@media (max-width: 768px) {
+    .date-picker-wrapper::-webkit-scrollbar,
+    .table-wrapper::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .date-picker-wrapper::-webkit-scrollbar-thumb,
+    .table-wrapper::-webkit-scrollbar-thumb {
+        background: rgba(102, 126, 234, 0.3);
+        border-radius: 2px;
+    }
+    
+    .date-picker-wrapper::-webkit-scrollbar-track,
+    .table-wrapper::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
     }
 }
 
