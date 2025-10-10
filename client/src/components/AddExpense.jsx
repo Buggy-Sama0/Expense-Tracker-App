@@ -94,7 +94,7 @@ const AddExpense = () => {
                         Amount
                     </label>
                     <div className="amount-input-wrapper">
-                        <span className="currency-symbol">$</span>
+                        <span className="currency-symbol-add">$</span>
                         <input 
                             id="amount"
                             type="number" 

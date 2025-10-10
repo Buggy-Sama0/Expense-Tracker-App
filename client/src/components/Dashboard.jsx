@@ -205,51 +205,185 @@ const Dashboard = () => {
 
     // UI Design
     return (
-        <section id="dashboard">
-            <div className="dashboard-cards-container">
-                <div className="dashboard-card budget-card">
-                    <div className="dashboard-card-icon" style={{background: 'linear-gradient(135deg, #60a5fa 60%, #6366f1 100%)'}}>
-                        {/* Wallet SVG icon */}
-                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M20 7V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1h-7a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h7Zm-7 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9v-4h-9Zm7 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+        <section className="dashboard-container">
+            <div className="dashboard-header">
+                <h1 className="dashboard-title">
+                    <span className="title-icon">📊</span>
+                    Financial Overview
+                    <span className="title-decoration">✨</span>
+                </h1>
+                <p className="dashboard-subtitle">Track your spending and stay within budget</p>
+            </div>
+
+            <div className="dashboard-stats-grid">
+                <div className="stat-card budget-card">
+                    <div className="stat-card-header">
+                        <div className="stat-icon-wrapper budget-icon">
+                            <div className="icon-glow"></div>
+                            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 7V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1h-7a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h7Zm-7 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9v-4h-9Zm7 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                            </svg>
+                        </div>
+                        <div className="stat-trend budget-trend">
+                            <span className="trend-indicator">📈</span>
+                            <span className="trend-text">Available</span>
+                        </div>
                     </div>
-                    <div className="dashboard-card-label">Budget Left</div>
-                    <div className="dashboard-card-value budget-value">
-                        <span className="dashboard-currency">$</span>
-                        {Math.floor((localStorage.getItem('budget')-amount)*100)/100}
+                    <div className="stat-content">
+                        <div className="stat-label">Budget Remaining</div>
+                        <div className="stat-value budget-value">
+                            <span className="currency-symbol">$</span>
+                            <span className="amount">{Math.floor((localStorage.getItem('budget')-amount)*100)/100}</span>
+                        </div>
+                        <div className="stat-description">
+                            Out of ${localStorage.getItem('budget')} budget
+                        </div>
+                    </div>
+                    <div className="stat-progress">
+                        <div className="progress-bar">
+                            <div 
+                                className="progress-fill budget-progress" 
+                                style={{
+                                    width: `${Math.max(0, Math.min(100, ((localStorage.getItem('budget')-amount) / localStorage.getItem('budget')) * 100))}%`
+                                }}
+                            ></div>
+                        </div>
+                        <div className="progress-label">
+                            {Math.round(((localStorage.getItem('budget')-amount) / localStorage.getItem('budget')) * 100)}% remaining
+                        </div>
                     </div>
                 </div>
-                <div className="dashboard-card expense-card">
-                    <div className="dashboard-card-icon" style={{background: 'linear-gradient(135deg, #f43f5e 60%, #f59e42 100%)'}}>
-                        {/* Receipt SVG icon */}
-                        <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M19 2H5a2 2 0 0 0-2 2v18l3-3 3 3 3-3 3 3 3-3 3 3V4a2 2 0 0 0-2-2Zm-2 14H7v-2h10v2Zm0-4H7V8h10v4Z"/></svg>
+
+                <div className="stat-card expense-card">
+                    <div className="stat-card-header">
+                        <div className="stat-icon-wrapper expense-icon">
+                            <div className="icon-glow"></div>
+                            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M19 2H5a2 2 0 0 0-2 2v18l3-3 3 3 3-3 3 3 3-3 3 3V4a2 2 0 0 0-2-2Zm-2 14H7v-2h10v2Zm0-4H7V8h10v4Z"/>
+                            </svg>
+                        </div>
+                        <div className="stat-trend expense-trend">
+                            <span className="trend-indicator">📉</span>
+                            <span className="trend-text">Spent</span>
+                        </div>
                     </div>
-                    <div className="dashboard-card-label">Total Expenses</div>
-                    <div className="dashboard-card-value expense-value">
-                        <span className="dashboard-currency">$</span>{Math.floor(amount*100)/100}
+                    <div className="stat-content">
+                        <div className="stat-label">Total Expenses</div>
+                        <div className="stat-value expense-value">
+                            <span className="currency-symbol">$</span>
+                            <span className="amount">{Math.floor(amount*100)/100}</span>
+                        </div>
+                        <div className="stat-description">
+                            {((amount / localStorage.getItem('budget')) * 100).toFixed(1)}% of budget used
+                        </div>
+                    </div>
+                    <div className="stat-progress">
+                        <div className="progress-bar">
+                            <div 
+                                className="progress-fill expense-progress" 
+                                style={{
+                                    width: `${Math.min(100, (amount / localStorage.getItem('budget')) * 100)}%`
+                                }}
+                            ></div>
+                        </div>
+                        <div className="progress-label">
+                            {Math.round((amount / localStorage.getItem('budget')) * 100)}% of budget
+                        </div>
+                    </div>
+                </div>
+
+                <div className="stat-card summary-card">
+                    <div className="stat-card-header">
+                        <div className="stat-icon-wrapper summary-icon">
+                            <div className="icon-glow"></div>
+                            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4H4v12h16V7zM7 9h10v2H7V9zm0 4h7v2H7v-2z"/>
+                            </svg>
+                        </div>
+                        <div className="stat-trend summary-trend">
+                            <span className="trend-indicator">📋</span>
+                            <span className="trend-text">Summary</span>
+                        </div>
+                    </div>
+                    <div className="stat-content">
+                        <div className="stat-label">Financial Health</div>
+                        <div className="stat-value summary-value">
+                            <span className="health-score">
+                                {amount <= localStorage.getItem('budget') * 0.7 ? '🟢' : 
+                                 amount <= localStorage.getItem('budget') * 0.9 ? '🟡' : '🔴'}
+                            </span>
+                            <span className="health-text">
+                                {amount <= localStorage.getItem('budget') * 0.7 ? 'Excellent' : 
+                                 amount <= localStorage.getItem('budget') * 0.9 ? 'Good' : 'Warning'}
+                            </span>
+                        </div>
+                        <div className="stat-description">
+                            {amount <= localStorage.getItem('budget') * 0.7 ? 'Great spending control!' : 
+                             amount <= localStorage.getItem('budget') * 0.9 ? 'Watch your expenses' : 'Budget exceeded!'}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="budget-overview">
-                <h3 className="expense-overview-heading">Expense Overview</h3>
-                <div className="chart-container">
-                    <Pie data={data} options={chartOptions} />
+            <div className="expense-breakdown-section">
+                <div className="section-header">
+                    <h3 className="section-title">
+                        <span className="section-icon">🥧</span>
+                        Expense Breakdown
+                    </h3>
+                    <div className="total-amount-badge">
+                        Total: ${Math.floor(amount*100)/100}
+                    </div>
                 </div>
-                <div className="chart-legend">
-                    <div className="chart-legend-item">
-                        <span style={{ color: 'rgb(239, 68, 68)' }}>●</span>
-                        <span>Food: ${foodExpense}</span>
+                
+                <div className="breakdown-content">
+                    <div className="chart-container">
+                        <Pie data={data} options={chartOptions} />
                     </div>
-                    <div className="chart-legend-item">
-                        <span style={{ color: 'rgb(59, 130, 246)' }}>●</span>
-                        <span>Travel: ${travelExpense}</span>
-                    </div>
-                    <div className="chart-legend-item">
-                        <span style={{ color: 'rgb(245, 158, 11)' }}>●</span>
-                        <span>Bill: ${billExpense}</span>
-                    </div>
-                    <div className="chart-legend-item">
-                        <span style={{ color: 'rgb(63, 193, 30)' }}>●</span>
-                        <span>Utility: ${utilityExpense}</span>
+                    
+                    <div className="category-stats">
+                        <div className="category-item food-category">
+                            <div className="category-header">
+                                <div className="category-color food-color"></div>
+                                <span className="category-name">🍕 Food</span>
+                            </div>
+                            <div className="category-amount">${foodExpense}</div>
+                            <div className="category-percentage">
+                                {amount > 0 ? ((foodExpense/amount)*100).toFixed(1) : 0}%
+                            </div>
+                        </div>
+                        
+                        <div className="category-item travel-category">
+                            <div className="category-header">
+                                <div className="category-color travel-color"></div>
+                                <span className="category-name">✈️ Travel</span>
+                            </div>
+                            <div className="category-amount">${travelExpense}</div>
+                            <div className="category-percentage">
+                                {amount > 0 ? ((travelExpense/amount)*100).toFixed(1) : 0}%
+                            </div>
+                        </div>
+                        
+                        <div className="category-item bill-category">
+                            <div className="category-header">
+                                <div className="category-color bill-color"></div>
+                                <span className="category-name">📄 Bill</span>
+                            </div>
+                            <div className="category-amount">${billExpense}</div>
+                            <div className="category-percentage">
+                                {amount > 0 ? ((billExpense/amount)*100).toFixed(1) : 0}%
+                            </div>
+                        </div>
+                        
+                        <div className="category-item utility-category">
+                            <div className="category-header">
+                                <div className="category-color utility-color"></div>
+                                <span className="category-name">⚡ Utility</span>
+                            </div>
+                            <div className="category-amount">${utilityExpense}</div>
+                            <div className="category-percentage">
+                                {amount > 0 ? ((utilityExpense/amount)*100).toFixed(1) : 0}%
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
