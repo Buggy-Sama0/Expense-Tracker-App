@@ -2,41 +2,128 @@
 @media (max-width: 500px) {
     .recent-transactions {
         overflow-x: auto;
-        padding: 1.2rem 0.2rem 1.2rem 0.2rem;
-        width: 100vw;
+        padding: 1.2rem 0.8rem;
+        margin: 0;
+        width: 108%;
         box-sizing: border-box;
     }
+    
     .recent-transactions table {
-        min-width: 520px;
-        width: max-content;
-        display: block;
+        min-width: 100%;
+        width: 100%;
+        display: table;
+        table-layout: fixed;
     }
-    .recent-transactions th, .recent-transactions td {
+    
+    .recent-transactions th, 
+    .recent-transactions td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.85rem;
         white-space: nowrap;
-        padding: 0.7rem 0.7rem;
-        max-width: 140px;
-        overflow: visible;
+        overflow: hidden;
         text-overflow: ellipsis;
     }
-    .recent-transactions td {
-        position: relative;
-        overflow: visible;
+    
+    .recent-transactions th:nth-child(1), 
+    .recent-transactions td:nth-child(1) {
+        width: 28%;
+        max-width: 100px;
     }
-    /* Only target delete buttons in the table, not other buttons */
-    .recent-transactions td .delete-btn,
-    .recent-transactions td .delete-button,
-    .recent-transactions td button[type="button"],
-    .recent-transactions td button.delete {
-        min-width: 70px;
-        max-width: 100%;
+    
+    .recent-transactions th:nth-child(2), 
+    .recent-transactions td:nth-child(2) {
+        width: 18%;
+        max-width: 60px;
+    }
+    
+    .recent-transactions th:nth-child(3), 
+    .recent-transactions td:nth-child(3) {
+        width: 16%;
+        max-width: 50px;
+        text-align: right;
+    }
+    
+    .recent-transactions th:nth-child(4), 
+    .recent-transactions td:nth-child(4) {
+        width: 38%;
+        max-width: 120px;
+        text-align: center;
+        padding-right: 0.4rem;
+    }
+    
+    /* Delete button styling for mobile */
+    .recent-transactions td button {
+        background: #ef4444;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+        max-width: 95px;
         white-space: nowrap;
-        font-size: 0.98rem;
-        padding: 0.5rem 0.7rem;
+        text-transform: capitalize;
         box-sizing: border-box;
         margin: 0 auto;
-        display: block;
-        position: relative;
-        z-index: 2;
+    }
+    
+    .recent-transactions td button:hover {
+        background: #dc2626;
+        transform: scale(1.05);
+    }
+    
+    .recent-transactions td button:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Extra small screens - iPhone SE and similar */
+@media (max-width: 375px) {
+    .recent-transactions {
+        padding: 1rem 0.5rem;
+        margin: 0;
+        width: 100%;
+    }
+    
+    .recent-transactions th, 
+    .recent-transactions td {
+        padding: 0.5rem 0.2rem;
+        font-size: 0.8rem;
+    }
+    
+    .recent-transactions th:nth-child(1), 
+    .recent-transactions td:nth-child(1) {
+        width: 25%;
+        max-width: 80px;
+    }
+    
+    .recent-transactions th:nth-child(2), 
+    .recent-transactions td:nth-child(2) {
+        width: 18%;
+        max-width: 50px;
+    }
+    
+    .recent-transactions th:nth-child(3), 
+    .recent-transactions td:nth-child(3) {
+        width: 15%;
+        max-width: 40px;
+    }
+    
+    .recent-transactions th:nth-child(4), 
+    .recent-transactions td:nth-child(4) {
+        width: 42%;
+        max-width: 110px;
+        padding-right: 0.4rem;
+    }
+    
+    .recent-transactions td button {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+        max-width: 85px;
+        width: 100%;
     }
 }
     .recent-transactions::-webkit-scrollbar {
@@ -751,6 +838,7 @@ table td {
     padding: var(--space-4);
     border-bottom: 1px solid var(--gray-200);
     color: var(--gray-700);
+    vertical-align: middle;
 }
 
 table tr {
@@ -805,17 +893,27 @@ table tr:hover {
 }
 
 table button {
-    background: var(--danger);
+    background: #ef4444;
     color: white;
+    border: none;
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius);
     font-size: var(--font-size-sm);
-    transition: var(--transition-all);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: capitalize;
+    min-width: 70px;
 }
 
 table button:hover {
-    background: var(--danger-dark);
-    transform: scale(1.05);
+    background: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+table button:active {
+    transform: translateY(0);
 }
 
 

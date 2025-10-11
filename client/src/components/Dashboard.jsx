@@ -235,7 +235,7 @@ const Dashboard = () => {
                             <span className="currency-symbol">$</span>
                             <span className="amount">{Math.floor((localStorage.getItem('budget')-amount)*100)/100}</span>
                         </div>
-                        <div className="stat-description">
+                        <div className="stat-description">https://extensions.lilianbischung.fr/http://localhost:5173/
                             Out of ${localStorage.getItem('budget')} budget
                         </div>
                     </div>
