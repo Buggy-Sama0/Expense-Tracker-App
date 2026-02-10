@@ -185,3 +185,15 @@
         font-size: var(--font-size-sm);
     }
 }
+
+/* Light theme */
+.header.theme-light {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #22223b;
+}
+
+/* Dark theme */
+.header.theme-dark {
+  background: #23233a;
+  color: #f3f4f6;
+}

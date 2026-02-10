@@ -1,13 +1,14 @@
 import { NavLink} from 'react-router-dom';
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
 import { API_URL } from './config';
 import './Header.css';
-
+import {ThemeContext} from './App'
 
 const Header = () => {
     const token=localStorage.getItem('token')
     const [userName, setUserName]=useState('')
+    const theme=useContext(ThemeContext)
 
     useEffect(()=> {
 
@@ -33,7 +34,7 @@ const Header = () => {
     })
 
     return (
-        <header className="header">
+        <header className={`header theme-${theme}`}>
             <div className="header-content">
                 <h1 className="header-title">💰 Expense Tracker</h1>
 

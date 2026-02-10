@@ -14,6 +14,7 @@ import { API_URL } from './config';
 import './App.css';
 import { useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { createContext, useContext, useState } from 'react';
 
 const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem('token');
@@ -39,84 +40,102 @@ const PublicRoute = ({ children }) => {
     return children;
 };
 
-const App = () => {
-    return (
-        <Router>
-            <Analytics />
-            <div className="app">
-                <main>
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/dashboard" />} />
-                        
-                        {/* Public Routes */}
-                        <Route path="/login" element={
-                            <PublicRoute>
-                                <Login />
-                            </PublicRoute>
-                        } />
-                        <Route path="/register" element={
-                            <PublicRoute>
-                                <Register />
-                            </PublicRoute>
-                        } />
-                        <Route path="/forgot-password" element={
-                            <PublicRoute>
-                                <ForgotPassword />
-                            </PublicRoute>
-                        } />
-                        <Route path="/reset-password" element={
-                            <PublicRoute>
-                                <ResetPassword />
-                            </PublicRoute>
-                        } />
+export const ThemeContext=createContext('light');
 
-                        {/* Protected Routes */}
-                        <Route path="/dashboard" element={
-                            <ProtectedRoute>
-                                <>
+function Button({children, onClick}) {
+    return (
+        <button onClick={onClick}>
+            {children}
+        </button>
+    )
+}
+
+const App = () => {
+    const [theme, setTheme] = useState('light')
+    return (
+        <ThemeContext.Provider value={theme}>
+            <Button onClick={() => {
+                                        setTheme(theme === 'dark'?'light':'dark')
+                                    }}>
+                                        {theme==='light' ? '☀️':'🌙'}
+                                    </Button>
+            <Router>
+                <Analytics />
+                <div className="app">
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<Navigate to="/dashboard" />} />
+                            
+                            {/* Public Routes */}
+                            <Route path="/login" element={
+                                <PublicRoute>
+                                    <Login />
+                                </PublicRoute>
+                            } />
+                            <Route path="/register" element={
+                                <PublicRoute>
+                                    <Register />
+                                </PublicRoute>
+                            } />
+                            <Route path="/forgot-password" element={
+                                <PublicRoute>
+                                    <ForgotPassword />
+                                </PublicRoute>
+                            } />
+                            <Route path="/reset-password" element={
+                                <PublicRoute>
+                                    <ResetPassword />
+                                </PublicRoute>
+                            } />
+
+                            {/* Protected Routes */}
+                            <Route path="/dashboard" element={
+                                <ProtectedRoute>
+                                    <>
                                     <Header />
                                     <Dashboard />
-                                </>
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/add-expense" element={
-                            <ProtectedRoute>
-                                <>
-                                    <Header />
-                                    <AddExpense />
-                                </>
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/add-expense-byImg" element={
-                            <ProtectedRoute>
-                                <>
-                                    <Header />
-                                    <ImgUploader />
-                                </>
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/reports" element={
-                            <ProtectedRoute>
-                                <>
-                                    <Header />
-                                    <Reports />
-                                </>
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/settings" element={
-                            <ProtectedRoute>
-                                <>
-                                    <Header />
-                                    <Settings />
-                                </>
-                            </ProtectedRoute>
-                        } />
-                        {/* Add catch-all route for 404s */}
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Routes>
-                </main>
-            </div>
-        </Router>
+                                    </>
+                                </ProtectedRoute>
+                            } />
+                            <Route path="/add-expense" element={
+                                <ProtectedRoute>
+                                    <>
+                                        <Header />
+                                        <AddExpense />
+                                    </>
+                                </ProtectedRoute>
+                            } />
+                            <Route path="/add-expense-byImg" element={
+                                <ProtectedRoute>
+                                    <>
+                                        <Header />
+                                        <ImgUploader />
+                                    </>
+                                </ProtectedRoute>
+                            } />
+                            <Route path="/reports" element={
+                                <ProtectedRoute>
+                                    <>
+                                        <Header />
+                                        <Reports />
+                                    </>
+                                </ProtectedRoute>
+                            } />
+                            <Route path="/settings" element={
+                                <ProtectedRoute>
+                                    <>
+                                        <Header />
+                                        <Settings />
+                                    </>
+                                </ProtectedRoute>
+                            } />
+                            {/* Add catch-all route for 404s */}
+                            <Route path="*" element={<Navigate to="/" replace />} />
+                        </Routes>
+                    </main>
+                </div>
+            </Router>
+        </ThemeContext.Provider>
     );
 };
 

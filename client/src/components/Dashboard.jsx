@@ -1,14 +1,14 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
 import axios from 'axios';
 import { Line, Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { API_URL } from '../config';
 import DialoBox from './DialogBox';
+import {ThemeContext} from '../App'
 
 import './Dashboard.css'
 
 const Dashboard = () => {
-
     const [amount, setAmount]=useState(0);
     const [foodExpense, setFoodExpense]=useState(0);
     const [travelExpense, setTravelExpense]=useState(0);
@@ -16,6 +16,11 @@ const Dashboard = () => {
     const [utilityExpense, setUtilityExpense]=useState(0);
     const [transaction, setTransaction] = useState([]);
     const dialogRef=useRef();
+
+    const [loading, setLoading] = useState(true)
+    const [hasLoaded, setHasLoaded] = useState(false);
+
+    const theme= useContext(ThemeContext)
 
     const token=localStorage.getItem('token')
     
@@ -50,25 +55,31 @@ const Dashboard = () => {
 
     // Display the last few transactions
     async function showExpenseList() {
+        setLoading(true);
+        try {
+            const response=await fetchJson();
+            const jsonObj=await response.data;
 
-        const response=await fetchJson();
-        const jsonObj=await response.data;
+            if (!Array.isArray(jsonObj)) {
+                throw new Error('API response is not an array');
+            }
+            const transactionList=jsonObj.map(expense => ({
+                ...expense
+            }));
+            
+            setTransaction(transactionList)
+            // console.log("Fetched Transaction", transactionList);
+            setHasLoaded(true); // Mark that we've loaded data at least once
 
-        if (!Array.isArray(jsonObj)) {
-            throw new Error('API response is not an array');
+            // Re calling it for real time update data
+            fetchApiData();
+            getDataForPie() ;
+            setLoading(false);
+        } catch(error) {
+            console.error('Error loading expenses:', error);
+        } finally {
+            setLoading(false)
         }
-        const transactionList=jsonObj.map(expense => ({
-            ...expense
-        }));
-        
-        setTransaction(transactionList)
-
-        //console.log("Fetched Transaction", transactionList);
-
-        // Re calling it for real time update data
-        fetchApiData();
-        getDataForPie() ;
-        
     }   
 
     // Pop up dialog to confirm delete function
@@ -146,6 +157,8 @@ const Dashboard = () => {
         } catch (error) {
             console.error('Error in getDataForPie:', error);
             return [0, 0, 0]; // Return default empty values on error
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -205,7 +218,7 @@ const Dashboard = () => {
 
     // UI Design
     return (
-        <section className="dashboard-container">
+        <section className={`dashboard-container-${theme}`}>
             <div className="dashboard-header">
                 <h1 className="dashboard-title">
                     <span className="title-icon">📊</span>
@@ -336,9 +349,19 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="breakdown-content">
-                    <div className="chart-container">
-                        <Pie data={data} options={chartOptions} />
-                    </div>
+                    
+                    {loading ? (
+                        <span colSpan="4" className="loading-cell">
+                            <div className="spinner"></div>
+                            Loading data...
+                        </span>
+                    ): (
+                        <div className="chart-container">
+                            <Pie data={data} options={chartOptions} />
+                        </div>
+                    )}
+
+                    
                     
                     <div className="category-stats">
                         <div className="category-item food-category">
@@ -398,6 +421,8 @@ const Dashboard = () => {
                 </div>
             </dialog>
 
+
+                                    
             <div className="recent-transactions">
                 <h3>Recent Transactions</h3>
                 <button className="byyn" onClick={() => showExpenseList() }>Click Me</button>
@@ -408,27 +433,61 @@ const Dashboard = () => {
                     <button autofocus>Close</button>
                     <p>This modal dialog has a groovy backdrop!</p>
                 </dialog>
-                
+
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th></th>
-                        </tr>
-                        
-                    </thead>
-                    {transaction.map((data, index) => (
-                    <tr key={index}>
-                            <td>{data.description}</td> 
-                            <td>{data.category}</td> 
-                            <td>{data.amount}</td> 
-                            <td><button onClick={() => openDialog(data.description)}>delete</button></td>
-                    </tr>   
-                        
-                    ))}
+
+                    {transaction.length===0 ? (
+                        // Initial state - table is blank
+                        <tbody>
+                            <tr>
+                                <td colSpan="4" className="empty-state">
+                                Click to load transactions
+                                </td>
+                            </tr>
+                        </tbody>
+                    ): loading ? (
+                        <tbody>
+                            <tr>
+                                <td colSpan="4" className="loading-cell">
+                                    <div className="spinner"></div>
+                                    Loading transactions...
+                                </td>
+                            </tr>
+                        </tbody>
+                    ): transaction.length === 0 ? (
+                        // Loaded but no data
+                        <tbody>
+                            <tr>
+                                <td colSpan="4" className="empty-state">
+                                No transactions found
+                                </td>
+                            </tr>
+                        </tbody>
+                    ) :(
+                        // Has data to display
+                        <>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transaction.map((data, index) => (
+                            <tr key={index}>
+                                    <td>{data.description}</td> 
+                                    <td>{data.category}</td> 
+                                    <td>{data.amount}</td> 
+                                    <td><button onClick={() => openDialog(data.description)}>delete</button></td>
+                            </tr>    
+                            ))}
+                        </tbody>
+                        </>
+                    )}
                 </table>
+                
                     
                 
             </div>

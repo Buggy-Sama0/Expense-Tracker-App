@@ -1011,6 +1011,35 @@ dialog button:hover, dialog button:focus {
     outline: none;
 }
 
+
+/* Loading spinner styles */
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-cell {
+  text-align: center;
+  padding: 3rem !important;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.loading-cell .spinner {
+  margin-bottom: 1rem;
+}
+
+
 /* ------------------------------------ */
 
 /* Responsive Design */
@@ -1075,3 +1104,30 @@ dialog button:hover, dialog button:focus {
 }
 
 
+
+/* Light theme for dashboard */
+.dashboard-container-light {
+  background: #fff;
+  color: #22223b;
+}
+
+/* Dark theme for dashboard */
+.dashboard-container-dark {
+  background: #22223b;
+  color: #f3f4f6;
+}
+
+/* Optional: style cards and headers for dark mode */
+.dashboard-container-dark .stat-card,
+.dashboard-container-dark .dashboard-header,
+.dashboard-container-dark .expense-breakdown-section {
+  background: #23233a;
+  color: #f3f4f6;
+}
+
+.dashboard-container-light .stat-card,
+.dashboard-container-light .dashboard-header,
+.dashboard-container-light .expense-breakdown-section {
+  background: #f8fafc;
+  color: #22223b;
+}
