@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { API_URL } from '../config';
 import './AddExpense.css';
+import {ThemeContext} from '../App'
 
 const AddExpense = () => {
     const [description, setDescription] = useState('');
@@ -10,6 +11,7 @@ const AddExpense = () => {
     const [category, setCategory] = useState('');
     const [date, setDate] = useState('');    
     const [message, setMessage]=useState('');
+    const theme= useContext(ThemeContext)
 
 
     const handleSubmit = async (e) => {
@@ -52,7 +54,7 @@ const AddExpense = () => {
     }
     
     return (
-        <section className="add-expense-container">
+        <section className={`add-expense-container-${theme}`}>
             <div className="add-expense-header">
                 <h2 className="add-expense-title">
                     <span className="title-icon">💰</span>

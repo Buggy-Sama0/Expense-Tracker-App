@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
 import { API_URL } from '../config';
 
-
+import {ThemeContext} from '../App'
 import './ImgUploader.css';
 
 const ImgUploader=() => {
@@ -13,6 +13,7 @@ const ImgUploader=() => {
     const [error, setError] = useState(null);
     const [text, setText]=useState('');
     const [message, setMessage]=useState('');
+    const theme= useContext(ThemeContext)
 
     const jjj=[
         {
@@ -173,7 +174,7 @@ const ImgUploader=() => {
     }
 
     return (
-        <div className="receipt-scanner-container">
+        <div className={`receipt-scanner-container-${theme}`}>
             <div className="scanner-header">
                 <h2 className="scanner-title">
                     📸 Smart Receipt Scanner

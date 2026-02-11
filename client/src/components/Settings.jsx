@@ -1,13 +1,13 @@
-import React, { useState} from 'react';
+import React, { useState, useContext} from 'react';
 import './Settings.css';
 //import axios from 'axios';
 
-
+import {ThemeContext} from '../App'
 const Settings = () => {
 
     const [budget, setBudget]=useState('');
     const [message, setMessage]=useState('');
-
+    const theme= useContext(ThemeContext)
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -41,7 +41,7 @@ const Settings = () => {
     };
         
     return (
-        <section id="settings">
+        <section id={`settings-${theme}`}>
             <h1>Settings</h1>
             <h3>Set Budget</h3>
             {/* User profile and budget settings */}

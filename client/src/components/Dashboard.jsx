@@ -21,8 +21,9 @@ const Dashboard = () => {
     const [hasLoaded, setHasLoaded] = useState(false);
 
     const theme= useContext(ThemeContext)
-
     const token=localStorage.getItem('token')
+
+    const currency_format = new Intl.NumberFormat('zh-HK')
     
     async function fetchJson() {
         const request=await axios.get(`${API_URL}/showExpense`, 
@@ -246,7 +247,7 @@ const Dashboard = () => {
                         <div className="stat-label">Budget Remaining</div>
                         <div className="stat-value budget-value">
                             <span className="currency-symbol">$</span>
-                            <span className="amount">{Math.floor((localStorage.getItem('budget')-amount)*100)/100}</span>
+                            <span className="amount">{currency_format.format(Math.floor((localStorage.getItem('budget')-amount)*100)/100)}</span>
                         </div>
                         <div className="stat-description">https://extensions.lilianbischung.fr/http://localhost:5173/
                             Out of ${localStorage.getItem('budget')} budget
@@ -284,7 +285,7 @@ const Dashboard = () => {
                         <div className="stat-label">Total Expenses</div>
                         <div className="stat-value expense-value">
                             <span className="currency-symbol">$</span>
-                            <span className="amount">{Math.floor(amount*100)/100}</span>
+                            <span className="amount">{currency_format.format(Math.floor(amount*100)/100)}</span>
                         </div>
                         <div className="stat-description">
                             {((amount / localStorage.getItem('budget')) * 100).toFixed(1)}% of budget used
@@ -344,7 +345,7 @@ const Dashboard = () => {
                         Expense Breakdown
                     </h3>
                     <div className="total-amount-badge">
-                        Total: ${Math.floor(amount*100)/100}
+                        Total: ${currency_format.format(Math.floor(amount*100)/100)}
                     </div>
                 </div>
                 
@@ -369,7 +370,7 @@ const Dashboard = () => {
                                 <div className="category-color food-color"></div>
                                 <span className="category-name">🍕 Food</span>
                             </div>
-                            <div className="category-amount">${foodExpense}</div>
+                            <div className="category-amount">${currency_format.format(foodExpense)}</div>
                             <div className="category-percentage">
                                 {amount > 0 ? ((foodExpense/amount)*100).toFixed(1) : 0}%
                             </div>
@@ -380,7 +381,7 @@ const Dashboard = () => {
                                 <div className="category-color travel-color"></div>
                                 <span className="category-name">✈️ Travel</span>
                             </div>
-                            <div className="category-amount">${travelExpense}</div>
+                            <div className="category-amount">${currency_format.format(travelExpense)}</div>
                             <div className="category-percentage">
                                 {amount > 0 ? ((travelExpense/amount)*100).toFixed(1) : 0}%
                             </div>
@@ -391,7 +392,7 @@ const Dashboard = () => {
                                 <div className="category-color bill-color"></div>
                                 <span className="category-name">📄 Bill</span>
                             </div>
-                            <div className="category-amount">${billExpense}</div>
+                            <div className="category-amount">${currency_format.format(billExpense)}</div>
                             <div className="category-percentage">
                                 {amount > 0 ? ((billExpense/amount)*100).toFixed(1) : 0}%
                             </div>
@@ -402,7 +403,7 @@ const Dashboard = () => {
                                 <div className="category-color utility-color"></div>
                                 <span className="category-name">⚡ Utility</span>
                             </div>
-                            <div className="category-amount">${utilityExpense}</div>
+                            <div className="category-amount">${currency_format.format(utilityExpense)}</div>
                             <div className="category-percentage">
                                 {amount > 0 ? ((utilityExpense/amount)*100).toFixed(1) : 0}%
                             </div>
@@ -479,7 +480,7 @@ const Dashboard = () => {
                             <tr key={index}>
                                     <td>{data.description}</td> 
                                     <td>{data.category}</td> 
-                                    <td>{data.amount}</td> 
+                                    <td>{currency_format.format(data.amount)}</td> 
                                     <td><button onClick={() => openDialog(data.description)}>delete</button></td>
                             </tr>    
                             ))}

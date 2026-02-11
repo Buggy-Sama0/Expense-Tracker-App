@@ -1,11 +1,12 @@
 
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file for calender
 import 'react-date-range/dist/theme/default.css'; 
 import { Line, Pie } from 'react-chartjs-2';
 import axios from 'axios';
 import { API_URL } from '../config';
+import {ThemeContext} from '../App'
 
 import './Reports.css'
 
@@ -26,6 +27,7 @@ const Reports = () => {
 
     const [labelData, setLabelData]=useState([]);
     const [lineData, setLineData]=useState([]);
+    const theme= useContext(ThemeContext)
 
 
     const selectionRange = {
@@ -206,7 +208,7 @@ const Reports = () => {
 
 
     return (
-        <section className="reports-container">
+        <section className={`reports-container-${theme}`}>
             <div className="reports-header">
                 <h2 className="reports-title">
                     <span className="title-icon">📊</span>

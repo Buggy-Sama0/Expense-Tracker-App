@@ -43,7 +43,7 @@
     }
 }
 /* Settings Component Styles - Modern Redesign */
-#settings {
+#settings-light {
     max-width: 520px;
     margin: 2.5rem auto;
     padding: 2.5rem 2.5rem 2rem 2.5rem;
@@ -56,7 +56,7 @@
     overflow: hidden;
 }
 
-#settings::before {
+#settings-light::before {
     content: '';
     position: absolute;
     top: -60px;
@@ -69,7 +69,7 @@
     border-radius: 50%;
 }
 
-#settings h1 {
+#settings-light h1 {
     color: #3730a3;
     font-size: 2.2rem;
     font-weight: 800;
@@ -85,7 +85,7 @@
     position: relative;
 }
 
-#settings h3 {
+#settings-light h3 {
     color: #6366f1;
     font-size: 1.15rem;
     font-weight: 600;
@@ -95,6 +95,53 @@
     z-index: 1;
     position: relative;
 }
+
+/* Dark theme */
+#settings-dark {
+  background: #23233a;
+  color: #f3f4f6;
+}
+
+#settings-dark::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, #6366f1 0%, #a5b4fc 100%);
+    opacity: 0.13;
+    z-index: 0;
+    border-radius: 50%;
+}
+
+#settings-dark h1 {
+    color: #3730a3;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.7rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #0d61ce 0%, #5ea7fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    z-index: 1;
+    position: relative;
+}
+
+#settings-dark h3 {
+    color: #6366f1;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 2.2rem;
+    text-align: center;
+    letter-spacing: 0.2px;
+    z-index: 1;
+    position: relative;
+}
+/*************************************************/
 
 /* Form Styles */
 /* Modern Form Styles */
